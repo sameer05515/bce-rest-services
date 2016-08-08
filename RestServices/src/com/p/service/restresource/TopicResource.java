@@ -146,12 +146,17 @@ public class TopicResource {
 
 		try {
 			int c = DAOFactory.getTopicSessionInterface().create(topic);
-			return Response.status(HttpURLConnection.HTTP_OK).entity("Successfully created new topic : " + c).build();
+			return Response.status(HttpURLConnection.HTTP_OK).entity("{\"status\":\""
+					+ HttpURLConnection.HTTP_OK
+					+ "\", \"message\": \" Successfully created new topic : " + c+"\"}").build();
 		} catch (RestServiceException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.out.println(e);
 
-			return Response.status(HttpURLConnection.HTTP_NOT_FOUND).entity(e).build();
+			return Response.status(HttpURLConnection.HTTP_NOT_FOUND).entity("{\"status\":\""
+					+ HttpURLConnection.HTTP_NOT_FOUND
+					+ "\", \"message\": \" Error while creating new topic : " + e+"\"}").build();
 		}
 	}
 
@@ -174,12 +179,16 @@ public class TopicResource {
 		try {
 			boolean b = DAOFactory.getTopicSessionInterface().update(topic);
 
-			return Response.status(HttpURLConnection.HTTP_OK).entity("Successfully updated topic " + topic.getId())
+			return Response.status(HttpURLConnection.HTTP_OK).entity("{\"status\":\""
+					+ HttpURLConnection.HTTP_OK
+					+ "\", \"message\": \"Successfully updated topic " + topic.getId()+"\"}")
 					.build();
 		} catch (RestServiceException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return Response.status(HttpURLConnection.HTTP_NOT_FOUND).entity(e).build();
+			return Response.status(HttpURLConnection.HTTP_NOT_FOUND).entity("{\"status\":\""
+					+ HttpURLConnection.HTTP_NOT_FOUND
+					+ "\", \"message\": \" Error while creating new topic : " + e+"\"}").build();
 		}
 	}
 
