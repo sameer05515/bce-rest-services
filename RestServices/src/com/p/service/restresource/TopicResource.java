@@ -1,20 +1,16 @@
 package com.p.service.restresource;
 
 import java.net.HttpURLConnection;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -22,10 +18,8 @@ import javax.ws.rs.core.Response;
 import org.apache.log4j.Logger;
 
 import com.p.service.exception.RestServiceException;
-import com.p.service.pojo.Person;
 import com.p.service.pojo.Topic;
 import com.p.sevice.common.DAOFactory;
-
 
 /**
  * The Class TopicResource.
@@ -36,16 +30,6 @@ public class TopicResource {
 	/** The Constant logger. */
 	private static final Logger logger = Logger.getLogger(TopicResource.class.getName());
 
-	// private static List<Topic> topics=new ArrayList<Topic>();
-	//
-	// static{
-	//
-	// for(int i=1;i<10;i++){
-	// topics.add(new Topic(i, "topic ka title", "topic ka description"));
-	// }
-	//
-	// }
-
 	/**
 	 * Gets the all topics list.
 	 *
@@ -53,19 +37,18 @@ public class TopicResource {
 	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	// @Consumes(MediaType.APPLICATION_JSON)
 	public Response getAll(@Context HttpServletRequest serveletRequest) {
 
 		logger.info("Entered into getCoachingList method");
 		String message = "successfully contacted the restful API server";
 		try {
-			////////////
+
 			List<Topic> topics = DAOFactory.getTopicSessionInterface().getAll();
-			//////////
+
 			System.out.println("Information : " + message);
 			return Response.status(HttpURLConnection.HTTP_OK).entity(topics).build();
 		} catch (RestServiceException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 			return Response.status(HttpURLConnection.HTTP_NOT_FOUND).entity(e).build();
 		}
@@ -139,24 +122,23 @@ public class TopicResource {
 
 		System.out
 				.println("person.getFirstName()" + topic.getTitle() + "person.getLastName()" + topic.getDescription());
-		// topics.add(new Topic(topics.size(), topic.getTitle(),
-		// topic.getDescription()));
+
 		String message = "successfully contacted the restful API server";
 		System.out.println("Information : " + message);
 
 		try {
 			int c = DAOFactory.getTopicSessionInterface().create(topic);
-			return Response.status(HttpURLConnection.HTTP_OK).entity("{\"status\":\""
-					+ HttpURLConnection.HTTP_OK
-					+ "\", \"message\": \" Successfully created new topic : " + c+"\"}").build();
+			return Response.status(HttpURLConnection.HTTP_OK).entity("{\"status\":\"" + HttpURLConnection.HTTP_OK
+					+ "\", \"message\": \" Successfully created new topic : " + c + "\"}").build();
 		} catch (RestServiceException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 			System.out.println(e);
 
-			return Response.status(HttpURLConnection.HTTP_NOT_FOUND).entity("{\"status\":\""
-					+ HttpURLConnection.HTTP_NOT_FOUND
-					+ "\", \"message\": \" Error while creating new topic : " + e+"\"}").build();
+			return Response.status(HttpURLConnection.HTTP_NOT_FOUND)
+					.entity("{\"status\":\"" + HttpURLConnection.HTTP_NOT_FOUND
+							+ "\", \"message\": \" Error while creating new topic : " + e + "\"}")
+					.build();
 		}
 	}
 
@@ -170,25 +152,33 @@ public class TopicResource {
 		System.out
 				.println("person.getFirstName()" + topic.getTitle() + "person.getLastName()" + topic.getDescription());
 
-		// topics.add(new Topic(topics.size(), topic.getTitle(),
-		// topic.getDescription()));
-
 		String message = "successfully contacted the restful API server";
 		System.out.println("Information : " + message);
 
 		try {
 			boolean b = DAOFactory.getTopicSessionInterface().update(topic);
 
-			return Response.status(HttpURLConnection.HTTP_OK).entity("{\"status\":\""
-					+ HttpURLConnection.HTTP_OK
-					+ "\", \"message\": \"Successfully updated topic " + topic.getId()+"\"}")
+			return Response.status(HttpURLConnection.HTTP_OK)
+					.entity("{\"status\":\""
+							+ ((b && true) ? HttpURLConnection.HTTP_OK : HttpURLConnection.HTTP_INTERNAL_ERROR)
+							+ "\", \"message\": \"" + ((b && true) ? "Successfully " : "Unsuccessfully ")
+							+ "updated group " + topic.getId() + "\"}")
 					.build();
+
+			// return Response.status(HttpURLConnection.HTTP_OK)
+			// .entity("{\"status\":\""
+			// + ((b && true) ? HttpURLConnection.HTTP_OK :
+			// HttpURLConnection.HTTP_INTERNAL_ERROR)
+			// + "\", \"message\": \"" + ((b && true) ? "Successfully " :
+			// "Unsuccessfully ")
+			// + "updated group " + topic.getId() + "\"}");
 		} catch (RestServiceException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
-			return Response.status(HttpURLConnection.HTTP_NOT_FOUND).entity("{\"status\":\""
-					+ HttpURLConnection.HTTP_NOT_FOUND
-					+ "\", \"message\": \" Error while creating new topic : " + e+"\"}").build();
+			return Response.status(HttpURLConnection.HTTP_NOT_FOUND)
+					.entity("{\"status\":\"" + HttpURLConnection.HTTP_NOT_FOUND
+							+ "\", \"message\": \" Error while creating new topic : " + e + "\"}")
+					.build();
 		}
 	}
 

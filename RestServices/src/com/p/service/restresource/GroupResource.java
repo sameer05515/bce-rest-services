@@ -1,20 +1,16 @@
 package com.p.service.restresource;
 
 import java.net.HttpURLConnection;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -22,10 +18,8 @@ import javax.ws.rs.core.Response;
 import org.apache.log4j.Logger;
 
 import com.p.service.exception.RestServiceException;
-import com.p.service.pojo.Person;
 import com.p.service.pojo.Group;
 import com.p.sevice.common.DAOFactory;
-
 
 /**
  * The Class TopicResource.
@@ -35,16 +29,6 @@ public class GroupResource {
 
 	/** The Constant logger. */
 	private static final Logger logger = Logger.getLogger(GroupResource.class.getName());
-
-	// private static List<Topic> topics=new ArrayList<Topic>();
-	//
-	// static{
-	//
-	// for(int i=1;i<10;i++){
-	// topics.add(new Topic(i, "topic ka title", "topic ka description"));
-	// }
-	//
-	// }
 
 	/**
 	 * Gets the all topics list.
@@ -60,12 +44,12 @@ public class GroupResource {
 		String message = "successfully contacted the restful API server";
 		try {
 			////////////
-			List<Group> topics = DAOFactory.getGroupSessionInterface().getAll();
+			List<Group> groups = DAOFactory.getGroupSessionInterface().getAll();
 			//////////
 			System.out.println("Information : " + message);
-			return Response.status(HttpURLConnection.HTTP_OK).entity(topics).build();
+			return Response.status(HttpURLConnection.HTTP_OK).entity(groups).build();
 		} catch (RestServiceException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 			return Response.status(HttpURLConnection.HTTP_NOT_FOUND).entity(e).build();
 		}
@@ -88,8 +72,8 @@ public class GroupResource {
 		System.out.println("Information : " + message);
 
 		try {
-			Group topic = DAOFactory.getGroupSessionInterface().get(id);
-			return Response.status(HttpURLConnection.HTTP_OK).entity(topic).build();
+			Group group = DAOFactory.getGroupSessionInterface().get(id);
+			return Response.status(HttpURLConnection.HTTP_OK).entity(group).build();
 		} catch (RestServiceException e) {
 			e.printStackTrace();
 			return Response.status(HttpURLConnection.HTTP_NOT_FOUND).entity("no topic found for given id : " + id)
@@ -133,22 +117,21 @@ public class GroupResource {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response add(Group topic) {
+	public Response add(Group group) {
 
 		logger.info("Entered into getCoachingList method");
 
 		System.out
-				.println("person.getFirstName()" + topic.getTitle() + "person.getLastName()" + topic.getDescription());
-		// topics.add(new Topic(topics.size(), topic.getTitle(),
-		// topic.getDescription()));
+				.println("person.getFirstName()" + group.getTitle() + "person.getLastName()" + group.getDescription());
+
 		String message = "successfully contacted the restful API server";
 		System.out.println("Information : " + message);
 
 		try {
-			int c = DAOFactory.getGroupSessionInterface().create(topic);
+			int c = DAOFactory.getGroupSessionInterface().create(group);
 			return Response.status(HttpURLConnection.HTTP_OK).entity("Successfully created new topic : " + c).build();
 		} catch (RestServiceException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 
 			return Response.status(HttpURLConnection.HTTP_NOT_FOUND).entity(e).build();
@@ -158,26 +141,30 @@ public class GroupResource {
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response update(Group topic) {
+	public Response update(Group group) {
 
 		logger.info("Entered into getCoachingList method");
 
-		System.out
-				.println("person.getFirstName()" + topic.getTitle() + "person.getLastName()" + topic.getDescription());
-
-		// topics.add(new Topic(topics.size(), topic.getTitle(),
-		// topic.getDescription()));
+		System.out.println("group.getTitle()" + group.getTitle() + "group.getDescription()" + group.getDescription());
 
 		String message = "successfully contacted the restful API server";
 		System.out.println("Information : " + message);
 
 		try {
-			boolean b = DAOFactory.getGroupSessionInterface().update(topic);
+			boolean b = DAOFactory.getGroupSessionInterface().update(group);
 
-			return Response.status(HttpURLConnection.HTTP_OK).entity("Successfully updated topic " + topic.getId())
+			// return Response.status(HttpURLConnection.HTTP_OK)
+			// .entity(((b && true) ? "Successfully " : "Unsuccessfully ") +
+			// "updated group " + group.getId())
+			// .build();
+
+			return Response.status(HttpURLConnection.HTTP_OK)
+					.entity("{\"status\":\""
+							+ ((b && true) ? HttpURLConnection.HTTP_OK : HttpURLConnection.HTTP_INTERNAL_ERROR)
+							+ "\", \"message\": \"" + ((b && true) ? "Successfully " : "Unsuccessfully ")
+							+ "updated group " + group.getId() + "\"}")
 					.build();
 		} catch (RestServiceException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return Response.status(HttpURLConnection.HTTP_NOT_FOUND).entity(e).build();
 		}
