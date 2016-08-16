@@ -1,6 +1,7 @@
 package com.p.service.restresource;
 
 import java.net.HttpURLConnection;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -126,12 +127,21 @@ public class TopicResource {
 		String message = "successfully contacted the restful API server";
 		System.out.println("Information : " + message);
 
+		/*
+		 * TODO Validation of the topic object came , and if any assertion is
+		 * failing, error response code should be returned to client
+		 */		
 		try {
+			topic.setDateCreated(new Date());
+			topic.setDateLastModified(new Date());
 			int c = DAOFactory.getTopicSessionInterface().create(topic);
 			return Response.status(HttpURLConnection.HTTP_OK).entity("{\"status\":\"" + HttpURLConnection.HTTP_OK
 					+ "\", \"message\": \" Successfully created new topic : " + c + "\"}").build();
 		} catch (RestServiceException e) {
 
+			/*
+			 * TODO Error response code must be centralised, or if possible use SpringREST instead of Jersey framework
+			 * */
 			e.printStackTrace();
 			System.out.println(e);
 
@@ -154,8 +164,14 @@ public class TopicResource {
 
 		String message = "successfully contacted the restful API server";
 		System.out.println("Information : " + message);
+		
+		/*
+		 * TODO Validation of the topic object came , and if any assertion is
+		 * failing, error response code should be returned to client
+		 */
 
 		try {
+			topic.setDateLastModified(new Date());
 			boolean b = DAOFactory.getTopicSessionInterface().update(topic);
 
 			return Response.status(HttpURLConnection.HTTP_OK)

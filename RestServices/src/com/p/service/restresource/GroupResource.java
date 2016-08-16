@@ -1,6 +1,7 @@
 package com.p.service.restresource;
 
 import java.net.HttpURLConnection;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -127,14 +128,29 @@ public class GroupResource {
 		String message = "successfully contacted the restful API server";
 		System.out.println("Information : " + message);
 
+		/*
+		 * TODO Validation of the topic object came , and if any assertion is
+		 * failing, error response code should be returned to client
+		 */
 		try {
+			group.setDateCreated(new Date());
+			group.setDateLastModified(new Date());
 			int c = DAOFactory.getGroupSessionInterface().create(group);
-			return Response.status(HttpURLConnection.HTTP_OK).entity("Successfully created new topic : " + c).build();
+			//return Response.status(HttpURLConnection.HTTP_OK).entity("Successfully created new topic : " + c).build();
+			return Response.status(HttpURLConnection.HTTP_OK).entity("{\"status\":\"" + HttpURLConnection.HTTP_OK
+					+ "\", \"message\": \" Successfully created new group : " + c + "\"}").build();
 		} catch (RestServiceException e) {
 
+			/*
+			 * TODO Error response code must be centralised, or if possible use SpringREST instead of Jersey framework
+			 * */
 			e.printStackTrace();
 
-			return Response.status(HttpURLConnection.HTTP_NOT_FOUND).entity(e).build();
+			//return Response.status(HttpURLConnection.HTTP_NOT_FOUND).entity(e).build();
+			return Response.status(HttpURLConnection.HTTP_NOT_FOUND)
+					.entity("{\"status\":\"" + HttpURLConnection.HTTP_NOT_FOUND
+							+ "\", \"message\": \" Error while creating new group : " + e + "\"}")
+					.build();
 		}
 	}
 
@@ -150,7 +166,12 @@ public class GroupResource {
 		String message = "successfully contacted the restful API server";
 		System.out.println("Information : " + message);
 
+		/*
+		 * TODO Validation of the topic object came , and if any assertion is
+		 * failing, error response code should be returned to client
+		 */
 		try {
+			group.setDateLastModified(new Date());
 			boolean b = DAOFactory.getGroupSessionInterface().update(group);
 
 			// return Response.status(HttpURLConnection.HTTP_OK)
@@ -165,6 +186,9 @@ public class GroupResource {
 							+ "updated group " + group.getId() + "\"}")
 					.build();
 		} catch (RestServiceException e) {
+			/*
+			 * TODO Error response code must be centralised, or if possible use SpringREST instead of Jersey framework
+			 * */
 			e.printStackTrace();
 			return Response.status(HttpURLConnection.HTTP_NOT_FOUND).entity(e).build();
 		}

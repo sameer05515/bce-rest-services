@@ -1,6 +1,7 @@
 package com.p.service.restresource;
 
 import java.net.HttpURLConnection;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -126,12 +127,27 @@ public class ViewResource {
 		String message = "successfully contacted the restful API server";
 		System.out.println("Information : " + message);
 
+		/*
+		 * TODO Validation of the topic object came , and if any assertion is
+		 * failing, error response code should be returned to client
+		 */	
 		try {
+			view.setDateCreated(new Date());
+			view.setDateLastModified(new Date());
 			int c = DAOFactory.getViewSessionInterface().create(view);
-			return Response.status(HttpURLConnection.HTTP_OK).entity("Successfully created new topic : " + c).build();
+			//return Response.status(HttpURLConnection.HTTP_OK).entity("Successfully created new topic : " + c).build();
+			return Response.status(HttpURLConnection.HTTP_OK).entity("{\"status\":\"" + HttpURLConnection.HTTP_OK
+					+ "\", \"message\": \" Successfully created new view : " + c + "\"}").build();
 		} catch (RestServiceException e) {
+			/*
+			 * TODO Error response code must be centralised, or if possible use SpringREST instead of Jersey framework
+			 * */
 			e.printStackTrace();
-			return Response.status(HttpURLConnection.HTTP_NOT_FOUND).entity(e).build();
+			//return Response.status(HttpURLConnection.HTTP_NOT_FOUND).entity(e).build();
+			return Response.status(HttpURLConnection.HTTP_NOT_FOUND)
+					.entity("{\"status\":\"" + HttpURLConnection.HTTP_NOT_FOUND
+							+ "\", \"message\": \" Error while creating new view : " + e + "\"}")
+					.build();
 		}
 	}
 
@@ -147,7 +163,12 @@ public class ViewResource {
 		String message = "successfully contacted the restful API server";
 		System.out.println("Information : " + message);
 
+		/*
+		 * TODO Validation of the topic object came , and if any assertion is
+		 * failing, error response code should be returned to client
+		 */
 		try {
+			view.setDateLastModified(new Date());
 			boolean b = DAOFactory.getViewSessionInterface().update(view);
 
 			return Response.status(HttpURLConnection.HTTP_OK)
@@ -157,6 +178,9 @@ public class ViewResource {
 							+ "updated view " + view.getId() + "\"}")
 					.build();
 		} catch (RestServiceException e) {
+			/*
+			 * TODO Error response code must be centralised, or if possible use SpringREST instead of Jersey framework
+			 * */
 			e.printStackTrace();
 			return Response.status(HttpURLConnection.HTTP_NOT_FOUND).entity(e).build();
 		}
