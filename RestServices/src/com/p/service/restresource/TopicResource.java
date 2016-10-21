@@ -46,7 +46,7 @@ public class TopicResource {
 
 			List<Topic> topics = DAOFactory.getTopicSessionInterface().getAll();
 
-			System.out.println("Information : " + message);
+			logger.info("Information : " + message + topics);
 			return Response.status(HttpURLConnection.HTTP_OK).entity(topics).build();
 		} catch (RestServiceException e) {
 
@@ -69,7 +69,7 @@ public class TopicResource {
 
 		logger.info("Entered into getCoachingList method");
 		String message = "successfully contacted the restful API server";
-		System.out.println("Information : " + message);
+		logger.info("Information : " + message);
 
 		try {
 			Topic topic = DAOFactory.getTopicSessionInterface().get(id);
@@ -102,7 +102,7 @@ public class TopicResource {
 	// tt=t;
 	// }
 	// }
-	// System.out.println("Information : "+message);
+	// logger.info("Information : "+message);
 	// if(tt!=null){
 	// return Response.status(HttpURLConnection.HTTP_OK).entity(tt)
 	// .build();
@@ -121,16 +121,16 @@ public class TopicResource {
 
 		logger.info("Entered into getCoachingList method");
 
-		System.out
-				.println("person.getFirstName()" + topic.getTitle() + "person.getLastName()" + topic.getDescription());
+		logger.info("person.getFirstName()" + topic.getTitle() + "person.getLastName()" + topic.getDescription()
+				+ "topic.isPersonal()" + topic.isPersonal());
 
 		String message = "successfully contacted the restful API server";
-		System.out.println("Information : " + message);
+		logger.info("Information : " + message);
 
 		/*
 		 * TODO Validation of the topic object came , and if any assertion is
 		 * failing, error response code should be returned to client
-		 */		
+		 */
 		try {
 			topic.setDateCreated(new Date());
 			topic.setDateLastModified(new Date());
@@ -140,10 +140,11 @@ public class TopicResource {
 		} catch (RestServiceException e) {
 
 			/*
-			 * TODO Error response code must be centralised, or if possible use SpringREST instead of Jersey framework
-			 * */
+			 * TODO Error response code must be centralised, or if possible use
+			 * SpringREST instead of Jersey framework
+			 */
 			e.printStackTrace();
-			System.out.println(e);
+			logger.info(e);
 
 			return Response.status(HttpURLConnection.HTTP_NOT_FOUND)
 					.entity("{\"status\":\"" + HttpURLConnection.HTTP_NOT_FOUND
@@ -159,12 +160,12 @@ public class TopicResource {
 
 		logger.info("Entered into getCoachingList method");
 
-		System.out
-				.println("person.getFirstName()" + topic.getTitle() + "person.getLastName()" + topic.getDescription());
+		logger.info("person.getFirstName()" + topic.getTitle() + "person.getLastName()" + topic.getDescription()
+				+ "topic.isPersonal()" + topic.isPersonal());
 
 		String message = "successfully contacted the restful API server";
-		System.out.println("Information : " + message);
-		
+		logger.info("Information : " + message);
+
 		/*
 		 * TODO Validation of the topic object came , and if any assertion is
 		 * failing, error response code should be returned to client
@@ -181,13 +182,6 @@ public class TopicResource {
 							+ "updated group " + topic.getId() + "\"}")
 					.build();
 
-			// return Response.status(HttpURLConnection.HTTP_OK)
-			// .entity("{\"status\":\""
-			// + ((b && true) ? HttpURLConnection.HTTP_OK :
-			// HttpURLConnection.HTTP_INTERNAL_ERROR)
-			// + "\", \"message\": \"" + ((b && true) ? "Successfully " :
-			// "Unsuccessfully ")
-			// + "updated group " + topic.getId() + "\"}");
 		} catch (RestServiceException e) {
 
 			e.printStackTrace();

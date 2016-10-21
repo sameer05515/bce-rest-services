@@ -13,7 +13,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "topicgroup"/*, catalog = "zettacoaching"*/)
+@Table(name = "t_group"/*, catalog = "zettacoaching"*/)
 public class Group {
 	
 	private int id;

@@ -47,7 +47,7 @@ public class GroupResource {
 			////////////
 			List<Group> groups = DAOFactory.getGroupSessionInterface().getAll();
 			//////////
-			System.out.println("Information : " + message);
+			logger.info("Information : " + message);
 			return Response.status(HttpURLConnection.HTTP_OK).entity(groups).build();
 		} catch (RestServiceException e) {
 
@@ -70,7 +70,7 @@ public class GroupResource {
 
 		logger.info("Entered into getCoachingList method");
 		String message = "successfully contacted the restful API server";
-		System.out.println("Information : " + message);
+		logger.info("Information : " + message);
 
 		try {
 			Group group = DAOFactory.getGroupSessionInterface().get(id);
@@ -103,7 +103,7 @@ public class GroupResource {
 	// tt=t;
 	// }
 	// }
-	// System.out.println("Information : "+message);
+	// logger.info("Information : "+message);
 	// if(tt!=null){
 	// return Response.status(HttpURLConnection.HTTP_OK).entity(tt)
 	// .build();
@@ -122,11 +122,10 @@ public class GroupResource {
 
 		logger.info("Entered into getCoachingList method");
 
-		System.out
-				.println("person.getFirstName()" + group.getTitle() + "person.getLastName()" + group.getDescription());
+		logger.info("person.getFirstName()" + group.getTitle() + "person.getLastName()" + group.getDescription());
 
 		String message = "successfully contacted the restful API server";
-		System.out.println("Information : " + message);
+		logger.info("Information : " + message);
 
 		/*
 		 * TODO Validation of the topic object came , and if any assertion is
@@ -161,10 +160,10 @@ public class GroupResource {
 
 		logger.info("Entered into getCoachingList method");
 
-		System.out.println("group.getTitle()" + group.getTitle() + "group.getDescription()" + group.getDescription());
+		logger.info("group.getTitle()" + group.getTitle() + "group.getDescription()" + group.getDescription());
 
 		String message = "successfully contacted the restful API server";
-		System.out.println("Information : " + message);
+		logger.info("Information : " + message);
 
 		/*
 		 * TODO Validation of the topic object came , and if any assertion is

@@ -105,4 +105,13 @@ public class GroupSessionImpl implements GroupSession {
 		}
 		return groups;
 	}
+	
+	public static void main(String[] args) {
+		try {
+			System.out.println(new GroupSessionImpl().getAll());
+		} catch (RestServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

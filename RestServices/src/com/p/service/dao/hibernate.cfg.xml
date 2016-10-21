@@ -10,7 +10,7 @@
 		<!-- <property name="connection.driver_class">com.mysql.jdbc.Driver</property> -->
 		<property name="connection.driver_class">org.postgresql.Driver</property>
 		<!-- <property name="connection.url">jdbc:mysql://zettadevdb.czsujbavyddk.ap-southeast-1.rds.amazonaws.com:3306/zettacoaching</property> -->
-		<property name="connection.url">jdbc:postgresql://localhost:5432/topicmgmt_test</property>
+		<property name="connection.url">jdbc:postgresql://localhost:5432/topicmgmt_test1</property>
 		<!-- <property name="connection.url">jdbc:postgresql://localhost:5432/topicmgmt</property> -->
 		<!-- <property name="connection.url">jdbc:mysql://10.129.22.134:9418/zettacoaching</property> -->
 		<!-- <property name="connection.url">jdbc:mysql://10.129.22.206:3306/zettaprofile</property> -->
@@ -44,6 +44,9 @@
 		<mapping class="com.p.service.pojo.Topic" />
 		<mapping class="com.p.service.pojo.Group" />
 		<mapping class="com.p.service.pojo.View" />
+		<mapping class="com.p.service.pojo.TopicGroupRelation" />
+		<mapping class="com.p.service.pojo.ViewTopicRelation" />
+		<mapping class="com.p.service.pojo.GroupViewRelation" />
 
 		<!-- <mapping class="com.concentrix.zetta.coaching.pojo.Coachingactions" 
 			/> <mapping class="com.concentrix.zetta.coaching.pojo.CoachingactionsId" 

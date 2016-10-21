@@ -22,7 +22,7 @@ public class Topic {
 	private String description;
 	private Date dateCreated;
 	private Date dateLastModified;
-	
+	private boolean personal;
 	public Topic() {
 		super();
 		//this(0,null,null);
@@ -107,6 +107,21 @@ public class Topic {
 	 */
 	public void setDateLastModified(Date dateLastModified) {
 		this.dateLastModified = dateLastModified;
+	}
+
+	/**
+	 * @return the personal
+	 */
+	@Column(name = "isprivate", nullable = false)
+	public boolean isPersonal() {
+		return personal;
+	}
+
+	/**
+	 * @param personal the personal to set
+	 */
+	public void setPersonal(boolean personal) {
+		this.personal = personal;
 	}
 	
 	

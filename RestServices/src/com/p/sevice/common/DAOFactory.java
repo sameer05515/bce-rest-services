@@ -3,17 +3,26 @@ package com.p.sevice.common;
 import org.apache.log4j.Logger;
 
 import com.p.service.dao.GroupSession;
+import com.p.service.dao.GroupViewRelationSession;
+import com.p.service.dao.TopicGroupRelationSession;
 import com.p.service.dao.TopicSession;
 import com.p.service.dao.ViewSession;
+import com.p.service.dao.ViewTopicRelationSession;
 import com.p.service.daoimpl.GroupSessionImpl;
+import com.p.service.daoimpl.GroupViewRelationSessionImpl;
+import com.p.service.daoimpl.TopicGroupRelationSessionImpl;
 import com.p.service.daoimpl.TopicSessionImpl;
 import com.p.service.daoimpl.ViewSessionImpl;
+import com.p.service.daoimpl.ViewTopicRelationSessionImpl;
 
-public class DAOFactory {
+public final class DAOFactory {
 	
 	/** The Constant logger. */
 	private static final Logger logger = Logger
 			.getLogger(DAOFactory.class.getName());
+	private DAOFactory(){
+		
+	}
 	
 	public static TopicSession getTopicSessionInterface(){
 		logger.debug("Created new instance of "+TopicSession.class.getName());
@@ -28,6 +37,21 @@ public class DAOFactory {
 	public static ViewSession getViewSessionInterface(){
 		logger.debug("Created new instance of "+ViewSession.class.getName());
 		return new ViewSessionImpl();
+	}
+	
+	public static TopicGroupRelationSession getTopicGroupRelationSessionInterface(){
+		logger.debug("Created new instance of "+TopicGroupRelationSession.class.getName());
+		return new TopicGroupRelationSessionImpl();
+	}
+	
+	public static GroupViewRelationSession getGroupViewRelationSessionInterface(){
+		logger.debug("Created new instance of "+GroupViewRelationSession.class.getName());
+		return new GroupViewRelationSessionImpl();
+	}
+	
+	public static ViewTopicRelationSession getViewTopicRelationSessionInterface(){
+		logger.debug("Created new instance of "+ViewTopicRelationSession.class.getName());
+		return new ViewTopicRelationSessionImpl();
 	}
 
 }

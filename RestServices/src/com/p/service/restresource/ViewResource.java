@@ -47,7 +47,7 @@ public class ViewResource {
 
 			List<View> views = DAOFactory.getViewSessionInterface().getAll();
 
-			System.out.println("Information : " + message);
+			logger.info("Information : " + message);
 			return Response.status(HttpURLConnection.HTTP_OK).entity(views).build();
 		} catch (RestServiceException e) {
 
@@ -70,7 +70,7 @@ public class ViewResource {
 
 		logger.info("Entered into getCoachingList method");
 		String message = "successfully contacted the restful API server";
-		System.out.println("Information : " + message);
+		logger.info("Information : " + message);
 
 		try {
 			View topic = DAOFactory.getViewSessionInterface().get(id);
@@ -103,7 +103,7 @@ public class ViewResource {
 	// tt=t;
 	// }
 	// }
-	// System.out.println("Information : "+message);
+	// logger.info("Information : "+message);
 	// if(tt!=null){
 	// return Response.status(HttpURLConnection.HTTP_OK).entity(tt)
 	// .build();
@@ -122,10 +122,10 @@ public class ViewResource {
 
 		logger.info("Entered into getCoachingList method");
 
-		System.out.println("view.getTitle()" + view.getTitle() + "view.getDescription()" + view.getDescription());
+		logger.info("view.getTitle()" + view.getTitle() + "view.getDescription()" + view.getDescription());
 
 		String message = "successfully contacted the restful API server";
-		System.out.println("Information : " + message);
+		logger.info("Information : " + message);
 
 		/*
 		 * TODO Validation of the topic object came , and if any assertion is
@@ -158,10 +158,10 @@ public class ViewResource {
 
 		logger.info("Entered into getCoachingList method");
 
-		System.out.println("view.getTitle()" + view.getTitle() + "view.getDescription()" + view.getDescription());
+		logger.info("view.getTitle()" + view.getTitle() + "view.getDescription()" + view.getDescription());
 
 		String message = "successfully contacted the restful API server";
-		System.out.println("Information : " + message);
+		logger.info("Information : " + message);
 
 		/*
 		 * TODO Validation of the topic object came , and if any assertion is
