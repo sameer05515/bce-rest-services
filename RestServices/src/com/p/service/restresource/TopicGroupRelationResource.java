@@ -96,7 +96,7 @@ public class TopicGroupRelationResource {
 	@GET
 	@Path("/topics")
 	@Produces(MediaType.APPLICATION_JSON)
-	//@Consumes(MediaType.APPLICATION_JSON)
+	// @Consumes(MediaType.APPLICATION_JSON)
 	public Response getTopicGroupRelationForTopic(@QueryParam("id") final List<Integer> topicIdList,
 			@Context UriInfo uriInfo, @Context HttpHeaders headers, @Context HttpServletResponse servletResponse,
 			@Context HttpServletRequest servletRequest) {
@@ -151,6 +151,21 @@ public class TopicGroupRelationResource {
 		// Response.status(HttpURLConnection.HTTP_OK).entity("{\"data\":\"" +
 		// employeeAssignedToLobCount + "\"}")
 		// .build();
+		/*
+		 * StringBuffer sb=new StringBuffer(); sb.append("[");
+		 * for(TopicGroupRelation tr:listTopicGroupRelation){
+		 * sb.append(tr.toString()).append(","); }
+		 * sb.deleteCharAt(sb.lastIndexOf(",")); sb.append("]");
+		 */
+
+		//
+
+		// Gson gson = new Gson();
+
+		// logger.info("got response : " + gson.toJson(listTopicGroupRelation));
+
+		// return Response.status(HttpURLConnection.HTTP_OK)
+		// .entity(TopicUtil.getTopicGroupRelVOList(listTopicGroupRelation)).build();
 		return Response.status(HttpURLConnection.HTTP_OK).entity(listTopicGroupRelation).build();
 
 	}

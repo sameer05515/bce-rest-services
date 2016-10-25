@@ -29,6 +29,7 @@
 
 		<!-- Enable Hibernate's automatic session context management -->
 		<property name="current_session_context_class">thread</property>
+		<property name="hibernate.enable_lazy_load_no_trans">true</property>
 		<!-- It is mapped to org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory -->
 		<property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
 

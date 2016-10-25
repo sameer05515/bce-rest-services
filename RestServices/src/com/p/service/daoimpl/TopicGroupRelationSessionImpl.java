@@ -58,6 +58,10 @@ public class TopicGroupRelationSessionImpl implements TopicGroupRelationSession 
 			hqlQuery.setParameterList("lobIdList", lobIdList);
 
 			employeeLobsList = hqlQuery.list();
+			for (TopicGroupRelation tr : employeeLobsList) {
+				tr.getTopics();
+				tr.getGroups();
+			}
 			// employeesLobRowJsonList=prepareEmployeesLobRowJsonList(employeeLobsList);
 
 			logger.info("numberOfRecorsFetched:" + employeeLobsList);

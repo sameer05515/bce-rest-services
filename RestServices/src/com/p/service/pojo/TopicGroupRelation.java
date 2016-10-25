@@ -21,12 +21,12 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Table(name = "topicgroups"/* , catalog = "zettaprofile" */, uniqueConstraints = @UniqueConstraint(columnNames = {
 		"topicid", "groupid" }))
-public class TopicGroupRelation implements java.io.Serializable {
+public class TopicGroupRelation /* implements java.io.Serializable */ {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 5429095023265480024L;
+	// private static final long serialVersionUID = 5429095023265480024L;
 	private Integer id;
 	private Topic topics;
 	private Group groups;
@@ -35,6 +35,7 @@ public class TopicGroupRelation implements java.io.Serializable {
 	}
 
 	public TopicGroupRelation(Topic topics, Group groups) {
+		super();
 		this.topics = topics;
 		this.groups = groups;
 	}
@@ -62,12 +63,23 @@ public class TopicGroupRelation implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "groupid", nullable = false)
-	public Group getGroup() {
+	public Group getGroups() {
 		return this.groups;
 	}
 
-	public void setGroup(Group groups) {
+	public void setGroups(Group groups) {
 		this.groups = groups;
 	}
+
+	// @Override
+	// public String toString() {
+	// StringBuffer sb = new StringBuffer();
+	//
+	// sb.append("{").append("\"id\" :\"" + id + "\"").append(" ,
+	// ").append("\"topics\" :\"" + topics.getId() + "\"").append(" , ")
+	// .append("\"groups\" :\"" + groups.getId() + "\"").append("}");
+	//
+	// return sb.toString();
+	// }
 
 }
