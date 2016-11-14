@@ -147,25 +147,6 @@ public class TopicGroupRelationResource {
 
 		logger.info("got response : " + listTopicGroupRelation);
 
-		// return
-		// Response.status(HttpURLConnection.HTTP_OK).entity("{\"data\":\"" +
-		// employeeAssignedToLobCount + "\"}")
-		// .build();
-		/*
-		 * StringBuffer sb=new StringBuffer(); sb.append("[");
-		 * for(TopicGroupRelation tr:listTopicGroupRelation){
-		 * sb.append(tr.toString()).append(","); }
-		 * sb.deleteCharAt(sb.lastIndexOf(",")); sb.append("]");
-		 */
-
-		//
-
-		// Gson gson = new Gson();
-
-		// logger.info("got response : " + gson.toJson(listTopicGroupRelation));
-
-		// return Response.status(HttpURLConnection.HTTP_OK)
-		// .entity(TopicUtil.getTopicGroupRelVOList(listTopicGroupRelation)).build();
 		return Response.status(HttpURLConnection.HTTP_OK).entity(listTopicGroupRelation).build();
 
 	}
@@ -219,12 +200,12 @@ public class TopicGroupRelationResource {
 					.build();
 		}
 
-		int employeeAssignedToLobCount = 0;
+		int noOfTopicGroupRelationsRowsCreated = 0;
 		try {
 
-			TopicGroupRelationSession employeeLobInterface = DAOFactory.getTopicGroupRelationSessionInterface();
+			TopicGroupRelationSession topicGroupRelationSessionInterface = DAOFactory.getTopicGroupRelationSessionInterface();
 
-			employeeAssignedToLobCount = employeeLobInterface.addTopicsToGroups(
+			noOfTopicGroupRelationsRowsCreated = topicGroupRelationSessionInterface.addTopicsToGroups(
 					topicGroupRelationResourceVO.getTopicIdList(), topicGroupRelationResourceVO.getGroupIdList());
 
 		} catch (RestServiceException e) {
@@ -242,7 +223,7 @@ public class TopicGroupRelationResource {
 					.build();
 		}
 
-		if (employeeAssignedToLobCount == 0) {
+		if (noOfTopicGroupRelationsRowsCreated == 0) {
 			ErrorResponse er = new ErrorResponse(TopicResponseErrorCodes.ZT_EMP_LOB_ERR_001,
 					TopicUtil.getErrMsg(TopicResponseErrorCodes.ZT_EMP_LOB_ERR_001));
 			return Response.status(HttpURLConnection.HTTP_NOT_ACCEPTABLE).entity(er).type(MediaType.APPLICATION_JSON)
@@ -256,7 +237,7 @@ public class TopicGroupRelationResource {
 
 		return Response.status(HttpURLConnection.HTTP_OK)
 				.entity("{\"status\":\"" + HttpURLConnection.HTTP_OK + "\", \"message\": \""
-						+ TopicUtil.getErrMsg(TopicResponseErrorCodes.ZT_EMP_LOB_INFO_002) + employeeAssignedToLobCount
+						+ TopicUtil.getErrMsg(TopicResponseErrorCodes.ZT_EMP_LOB_INFO_002) + noOfTopicGroupRelationsRowsCreated
 						+ "\"}")
 				.build();
 	}
