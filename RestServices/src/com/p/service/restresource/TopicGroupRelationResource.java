@@ -173,8 +173,39 @@ public class TopicGroupRelationResource {
 					.build();
 		}
 
-		return null;// EmployeeLobsService.getInstance().getEmployeeLobMappingsForLob(lobList,
-					// uriInfo, headers, servletResponse, req);
+		List<TopicGroupRelation> listTopicGroupRelation;
+		try {
+
+			TopicGroupRelationSession objTopicGroupRelationSession = DAOFactory.getTopicGroupRelationSessionInterface();
+
+			listTopicGroupRelation = objTopicGroupRelationSession.getTopicGroupRelationForGroup(groupIdList);
+
+		} catch (RestServiceException e) {
+			if (e.getErrCode() == TopicResponseErrorCodes.ZT_EMP_LOB_ERR_009) {
+				ErrorResponse er = new ErrorResponse(TopicResponseErrorCodes.ZT_EMP_LOB_ERR_009, e.getMessage(),
+						e.getMessage());
+				logger.error(er.getErrorCode(), e);
+				return Response.status(HttpURLConnection.HTTP_INTERNAL_ERROR).entity(er)
+						.type(MediaType.APPLICATION_JSON).build();
+			}
+			e.printStackTrace();
+			ErrorResponse er = new ErrorResponse(TopicResponseErrorCodes.ZT_EMP_LOB_ERR_001,
+					TopicUtil.getErrMsg(TopicResponseErrorCodes.ZT_EMP_LOB_ERR_001), e.getMessage());
+			logger.error(er.getErrorCode(), e);
+			return Response.status(HttpURLConnection.HTTP_INTERNAL_ERROR).entity(er).type(MediaType.APPLICATION_JSON)
+					.build();
+		}
+
+		if (listTopicGroupRelation == null || listTopicGroupRelation.size() <= 0) {
+			ErrorResponse er = new ErrorResponse(TopicResponseErrorCodes.ZT_EMP_LOB_ERR_001,
+					TopicUtil.getErrMsg(TopicResponseErrorCodes.ZT_EMP_LOB_ERR_001));
+			return Response.status(HttpURLConnection.HTTP_NOT_ACCEPTABLE).entity(er).type(MediaType.APPLICATION_JSON)
+					.build();
+		}
+
+		logger.info("got response : " + listTopicGroupRelation);
+
+		return Response.status(HttpURLConnection.HTTP_OK).entity(listTopicGroupRelation).build();
 
 	}
 
@@ -203,7 +234,8 @@ public class TopicGroupRelationResource {
 		int noOfTopicGroupRelationsRowsCreated = 0;
 		try {
 
-			TopicGroupRelationSession topicGroupRelationSessionInterface = DAOFactory.getTopicGroupRelationSessionInterface();
+			TopicGroupRelationSession topicGroupRelationSessionInterface = DAOFactory
+					.getTopicGroupRelationSessionInterface();
 
 			noOfTopicGroupRelationsRowsCreated = topicGroupRelationSessionInterface.addTopicsToGroups(
 					topicGroupRelationResourceVO.getTopicIdList(), topicGroupRelationResourceVO.getGroupIdList());
@@ -237,8 +269,8 @@ public class TopicGroupRelationResource {
 
 		return Response.status(HttpURLConnection.HTTP_OK)
 				.entity("{\"status\":\"" + HttpURLConnection.HTTP_OK + "\", \"message\": \""
-						+ TopicUtil.getErrMsg(TopicResponseErrorCodes.ZT_EMP_LOB_INFO_002) + noOfTopicGroupRelationsRowsCreated
-						+ "\"}")
+						+ TopicUtil.getErrMsg(TopicResponseErrorCodes.ZT_EMP_LOB_INFO_002)
+						+ noOfTopicGroupRelationsRowsCreated + "\"}")
 				.build();
 	}
 

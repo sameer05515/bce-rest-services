@@ -33,7 +33,7 @@ public class GroupViewRelation implements java.io.Serializable {
 	public GroupViewRelation() {
 	}
 
-	public GroupViewRelation(View views, Group groups) {
+	public GroupViewRelation(Group groups,View views) {
 		this.views = views;
 		this.groups = groups;
 	}
@@ -51,21 +51,21 @@ public class GroupViewRelation implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "viewid", nullable = false)
-	public View getView() {
+	public View getViews() {
 		return this.views;
 	}
 
-	public void setView(View views) {
+	public void setViews(View views) {
 		this.views = views;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "groupid", nullable = false)
-	public Group getGroup() {
+	public Group getGroups() {
 		return this.groups;
 	}
 
-	public void setGroup(Group groups) {
+	public void setGroups(Group groups) {
 		this.groups = groups;
 	}
 

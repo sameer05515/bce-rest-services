@@ -1,5 +1,10 @@
 package com.p.service.dao;
 
+import java.util.List;
+
+import com.p.service.exception.RestServiceException;
+import com.p.service.pojo.ViewTopicRelation;
+
 // TODO: Auto-generated Javadoc
 /**
  * The Interface CoachingActionInterface.
@@ -53,5 +58,7 @@ public interface ViewTopicRelationSession {
 //	 * @throws ZettaCoachingException the zetta coaching exception
 //	 */ 
 //	public Group get(Integer id) throws RestServiceException; 	
+	
+	public List<ViewTopicRelation> getAll() throws RestServiceException;
 	
 }

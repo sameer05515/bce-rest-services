@@ -96,4 +96,6 @@ public interface TopicGroupRelationSession {
 	 * @throws RestServiceException
 	 */
 	public int untagRelation(int groupId, int topicId) throws RestServiceException;
+
+	public List<TopicGroupRelation> getAll() throws RestServiceException;
 }
