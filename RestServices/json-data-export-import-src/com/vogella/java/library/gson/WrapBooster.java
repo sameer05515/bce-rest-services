@@ -16,17 +16,28 @@ public class WrapBooster {
 		try {
 			/** Export data */
 
-			/*new TopicWrapper().create(jsonDataDirectory + ExportImportConstants.topicsJsonFileName);*/
-			/*new GroupWrapper().create(jsonDataDirectory + ExportImportConstants.groupsJsonFileName);*/
-			/*new ViewWrapper().create(jsonDataDirectory + ExportImportConstants.viewsJsonFileName);*/
-			/*new TopicGroupWrapper().create(jsonDataDirectory + ExportImportConstants.topicGroupRelationJsonFileName);*/
-			/*new GroupViewWrapper().create(jsonDataDirectory + ExportImportConstants.groupViewRelationJsonFileName);*/
+			new TopicWrapper().create(jsonDataDirectory + ExportImportConstants.topicsJsonFileName);
+			new GroupWrapper().create(jsonDataDirectory + ExportImportConstants.groupsJsonFileName);
+			new ViewWrapper().create(jsonDataDirectory + ExportImportConstants.viewsJsonFileName);
+			/*
+			 * new TopicGroupWrapper().create(jsonDataDirectory +
+			 * ExportImportConstants.topicGroupRelationJsonFileName);
+			 */
+			/*
+			 * new GroupViewWrapper().create(jsonDataDirectory +
+			 * ExportImportConstants.groupViewRelationJsonFileName);
+			 */
 
 			/** Import data */
 
-			new TopicWrapper().consume(jsonDataDirectory + ExportImportConstants.topicsJsonFileName);
-			new GroupWrapper().consume(jsonDataDirectory + ExportImportConstants.groupsJsonFileName);
-			new ViewWrapper().consume(jsonDataDirectory + ExportImportConstants.viewsJsonFileName);
+			/*
+			 * new TopicWrapper().consume(jsonDataDirectory +
+			 * ExportImportConstants.topicsJsonFileName); new
+			 * GroupWrapper().consume(jsonDataDirectory +
+			 * ExportImportConstants.groupsJsonFileName); new
+			 * ViewWrapper().consume(jsonDataDirectory +
+			 * ExportImportConstants.viewsJsonFileName);
+			 */
 
 			/**
 			 * TopicGroup and GroupView relations are making problems , hence
@@ -34,10 +45,14 @@ public class WrapBooster {
 			 * this Concentrix organisation
 			 */
 
-			// new TopicGroupWrapper().consume(jsonDataDirectory +
-			// ExportImportConstants.topicGroupRelationJsonFileName);
-			// new GroupViewWrapper().consume(jsonDataDirectory +
-			// ExportImportConstants.groupViewRelationJsonFileName);
+			/*
+			 * new TopicGroupWrapper().consume(jsonDataDirectory +
+			 * ExportImportConstants.topicGroupRelationJsonFileName);
+			 */
+			/*
+			 * new GroupViewWrapper().consume(jsonDataDirectory +
+			 * ExportImportConstants.groupViewRelationJsonFileName);
+			 */
 
 		} catch (RestServiceException e) {
 			// TODO Auto-generated catch block

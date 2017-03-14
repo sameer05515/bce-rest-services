@@ -16,8 +16,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.p.service.commons.Doer;
 import com.p.service.exception.RestServiceException;
-import com.p.service.pojo.Topic;
 import com.p.service.pojo.TopicGroupRelation;
+import com.p.service.vo.TopicGroupRelationResourceVO;
 import com.p.sevice.common.DAOFactory;
 
 public class TopicGroupWrapper implements Doer {
@@ -27,11 +27,27 @@ public class TopicGroupWrapper implements Doer {
 		List<TopicGroupRelation> list = new ArrayList<TopicGroupRelation>();
 
 		list = DAOFactory.getTopicGroupRelationSessionInterface().getAll();
+		List<TopicGroupRelationResourceVO> listTopicGroupRelationResourceVO = new LinkedList<TopicGroupRelationResourceVO>();
+		Set<Integer> topicIdSet = new HashSet<Integer>();
+		for (TopicGroupRelation tg : list) {
+			topicIdSet.add(tg.getTopics().getId());
+		}
+
+		for (int topicId : topicIdSet) {
+			TopicGroupRelationResourceVO obj = new TopicGroupRelationResourceVO();
+			obj.getTopicIdList().add(topicId);
+			for (TopicGroupRelation tg : list) {
+				if (topicId == tg.getTopics().getId()) {
+					obj.getGroupIdList().add(tg.getGroups().getId());
+				}
+			}
+			listTopicGroupRelationResourceVO.add(obj);
+		}
 
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		Type type = new TypeToken<List<TopicGroupRelation>>() {
+		Type type = new TypeToken<List<TopicGroupRelationResourceVO>>() {
 		}.getType();
-		String json = gson.toJson(list, type);
+		String json = gson.toJson(listTopicGroupRelationResourceVO, type);
 		System.out.println(json);
 
 		Files.write(Paths.get(filePath), json.getBytes(), StandardOpenOption.CREATE,
@@ -46,22 +62,20 @@ public class TopicGroupWrapper implements Doer {
 
 		String content = "";
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		Type type = new TypeToken<List<TopicGroupRelation>>() {
+		Type type = new TypeToken<List<TopicGroupRelationResourceVO>>() {
 		}.getType();
 
 		content = new String(Files.readAllBytes(Paths.get(filePath)));
 
-		List<TopicGroupRelation> fromJson = gson.fromJson(content, type);
-		
+		List<TopicGroupRelationResourceVO> fromJson = gson.fromJson(content, type);
 
-
-		for (TopicGroupRelation task : fromJson) {
-			System.out.print(task.getId() + " , ");
-			List<Integer> topicList=new LinkedList<Integer>();
-			topicList.add(task.getTopics().getId());
-			List<Integer> groupList=new LinkedList<Integer>();
-			groupList.add(task.getGroups().getId());
-			int i=DAOFactory.getTopicGroupRelationSessionInterface().addTopicsToGroups(topicList,groupList);
+		for (TopicGroupRelationResourceVO tg : fromJson) {
+//			System.out.print(task.getId() + " , ");
+//			List<Integer> topicList = new LinkedList<Integer>();
+//			topicList.add(task.getTopics().getId());
+//			List<Integer> groupList = new LinkedList<Integer>();
+//			groupList.add(task.getGroups().getId());
+			int i = DAOFactory.getTopicGroupRelationSessionInterface().addTopicsToGroups(tg.getTopicIdList(), tg.getGroupIdList());
 			System.out.println(i + " , ");
 		}
 
