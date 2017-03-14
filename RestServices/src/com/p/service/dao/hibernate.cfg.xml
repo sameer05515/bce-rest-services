@@ -9,7 +9,7 @@
 		<!-- <property name="connection.driver_class">com.mysql.jdbc.Driver</property> -->
 		<property name="connection.driver_class">org.postgresql.Driver</property>
 		
-		<property name="connection.url">jdbc:postgresql://localhost:5432/topicmgmt_test1</property>
+		<property name="connection.url">jdbc:postgresql://localhost:5432/topicmgmt_test3</property>
 		
 		<!-- <property name="connection.url">jdbc:postgresql://localhost:5432/topicmgmt</property> -->
 		
