@@ -22,6 +22,7 @@ public class View {
 	private String description;
 	private Date dateCreated;
 	private Date dateLastModified;
+	private int rating=1;
 	
 	public View() {
 		super();
@@ -111,6 +112,18 @@ public class View {
 	}
 	
 	
-	
+	/**
+	 * @return the rating
+	 */
+	@Column(name = "rating", nullable = false)
+	public int getRating() {
+		return rating;
+	}
 
+	/**
+	 * @param rating the rating to set
+	 */
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
 }

@@ -22,6 +22,7 @@ public class Group {
 	private String description;
 	private Date dateCreated;
 	private Date dateLastModified;
+	private int rating=1;
 	
 	public Group() {
 		super();
@@ -110,7 +111,20 @@ public class Group {
 	public void setDateLastModified(Date dateLastModified) {
 		this.dateLastModified = dateLastModified;
 	}
-	
-	
+
+	/**
+	 * @return the rating
+	 */
+	@Column(name = "rating", nullable = false)
+	public int getRating() {
+		return rating;
+	}
+
+	/**
+	 * @param rating the rating to set
+	 */
+	public void setRating(int rating) {
+		this.rating = rating;
+	}	
 
 }

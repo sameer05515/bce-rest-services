@@ -23,6 +23,8 @@ public class Topic {
 	private Date dateCreated;
 	private Date dateLastModified;
 	private boolean personal;
+	private int rating=1;
+	
 	public Topic() {
 		super();
 		//this(0,null,null);
@@ -123,8 +125,20 @@ public class Topic {
 	public void setPersonal(boolean personal) {
 		this.personal = personal;
 	}
-	
-	
-	
+
+	/**
+	 * @return the rating
+	 */
+	@Column(name = "rating", nullable = false)
+	public int getRating() {
+		return rating;
+	}
+
+	/**
+	 * @param rating the rating to set
+	 */
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
 
 }
