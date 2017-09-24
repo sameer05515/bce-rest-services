@@ -23,14 +23,14 @@ import com.p.sevice.common.DAOFactory;
 
 public class MainTest {
 	
-	public static String jsonDataDirectory = "C:/Users/rim jhim/Desktop/";
+	public static String jsonDataDirectory = "G:/mum 507/Prem/json-data-office/json-data/";
 
 	public static void main(String[] args) {
 		//method1();
 		
 		createAndConsumeTopicJSON(jsonDataDirectory + "topics-data.json");
-//		createAndConsumeGroupJSON(jsonDataDirectory + "group-data.json");
-//		createAndConsumeViewJSON(jsonDataDirectory + "view-data.json");
+		createAndConsumeGroupJSON(jsonDataDirectory + "group-data.json");
+		createAndConsumeViewJSON(jsonDataDirectory + "view-data.json");
 //		createAndConsumeTopicGroupRelationJSON(jsonDataDirectory+ "topic-group-data.json");
 //		createAndConsumeGroupViewRelationJSON(jsonDataDirectory+ "group-view-data.json");
 //		createAndConsumeViewTopicRelationJSON(jsonDataDirectory+ "view-topics-data.json");
