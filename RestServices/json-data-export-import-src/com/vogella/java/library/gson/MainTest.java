@@ -23,17 +23,19 @@ import com.p.sevice.common.DAOFactory;
 
 public class MainTest {
 	
-	public static String jsonDataDirectory = "G:/mum 507/Prem/json-data-office/json-data/";
+//	public static String jsonDataDirectory = "G:/mum 507/Prem/json-data-office/json-data/";
 
+	public static String jsonDataDirectory = "C:/Users/Lenovo/Desktop/json-data/";
+	
 	public static void main(String[] args) {
 		//method1();
 		
 		createAndConsumeTopicJSON(jsonDataDirectory + "topics-data.json");
 		createAndConsumeGroupJSON(jsonDataDirectory + "group-data.json");
 		createAndConsumeViewJSON(jsonDataDirectory + "view-data.json");
-//		createAndConsumeTopicGroupRelationJSON(jsonDataDirectory+ "topic-group-data.json");
-//		createAndConsumeGroupViewRelationJSON(jsonDataDirectory+ "group-view-data.json");
-//		createAndConsumeViewTopicRelationJSON(jsonDataDirectory+ "view-topics-data.json");
+		createAndConsumeTopicGroupRelationJSON(jsonDataDirectory+ "topic-group-data.json");
+		createAndConsumeGroupViewRelationJSON(jsonDataDirectory+ "group-view-data.json");
+		createAndConsumeViewTopicRelationJSON(jsonDataDirectory+ "view-topics-data.json");
 	}
 
 	private static void method1() {
@@ -55,128 +57,128 @@ public class MainTest {
 
 	private static void createAndConsumeTopicJSON(String filePath) {
 
-//		List<Topic> list = new ArrayList<Topic>();
-//		try {
-//			list = DAOFactory.getTopicSessionInterface().getAll();
-//		} catch (RestServiceException e) {
-//			e.printStackTrace();
-//		}
+		List<Topic> list = new ArrayList<Topic>();
+		try {
+			list = DAOFactory.getTopicSessionInterface().getAll();
+		} catch (RestServiceException e) {
+			e.printStackTrace();
+		}
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		Type type = new TypeToken<List<Topic>>() {
 		}.getType();
-//		String json = gson.toJson(list, type);
-//		System.out.println(json);
-//		try {
-//			Files.write(Paths.get(filePath), json.getBytes(), StandardOpenOption.CREATE,
-//					StandardOpenOption.TRUNCATE_EXISTING);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-
-		System.out.println(
-				"#######################################################################################################");
-
-		String content = "";
+		String json = gson.toJson(list, type);
+		System.out.println(json);
 		try {
-			content = new String(Files.readAllBytes(Paths.get(filePath)));
+			Files.write(Paths.get(filePath), json.getBytes(), StandardOpenOption.CREATE,
+					StandardOpenOption.TRUNCATE_EXISTING);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		List<Topic> fromJson = gson.fromJson(content, type);
+		System.out.println(
+				"#######################################################################################################");
 
-		for (Topic task : fromJson) {
-			System.out.println(task.getId() + " , ");
-			try {
-				DAOFactory.getTopicSessionInterface().create(task);
-			} catch (RestServiceException e) {
-				e.printStackTrace();
-			}
-		}
+//		String content = "";
+//		try {
+//			content = new String(Files.readAllBytes(Paths.get(filePath)));
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//
+//		List<Topic> fromJson = gson.fromJson(content, type);
+//
+//		for (Topic task : fromJson) {
+//			System.out.println(task.getId() + " , ");
+//			try {
+//				DAOFactory.getTopicSessionInterface().create(task);
+//			} catch (RestServiceException e) {
+//				e.printStackTrace();
+//			}
+//		}
 	}
 
 	private static void createAndConsumeGroupJSON(String filePath) {
 
-//		List<Group> list = new ArrayList<Group>();
-//		try {
-//			list = DAOFactory.getGroupSessionInterface().getAll();
-//		} catch (RestServiceException e) {
-//			e.printStackTrace();
-//		}
+		List<Group> list = new ArrayList<Group>();
+		try {
+			list = DAOFactory.getGroupSessionInterface().getAll();
+		} catch (RestServiceException e) {
+			e.printStackTrace();
+		}
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		Type type = new TypeToken<List<Group>>() {
 		}.getType();
-//		String json = gson.toJson(list, type);
-//		System.out.println(json);
-//		try {
-//			Files.write(Paths.get(filePath), json.getBytes(), StandardOpenOption.CREATE,
-//					StandardOpenOption.TRUNCATE_EXISTING);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-
-		System.out.println(
-				"#######################################################################################################");
-
-		String content = "";
+		String json = gson.toJson(list, type);
+		System.out.println(json);
 		try {
-			content = new String(Files.readAllBytes(Paths.get(filePath)));
+			Files.write(Paths.get(filePath), json.getBytes(), StandardOpenOption.CREATE,
+					StandardOpenOption.TRUNCATE_EXISTING);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		List<Group> fromJson = gson.fromJson(content, type);
+		System.out.println(
+				"#######################################################################################################");
 
-		for (Group task : fromJson) {
-			System.out.println(task.getId() + " , ");
-			try {
-				DAOFactory.getGroupSessionInterface().create(task);
-			} catch (RestServiceException e) {
-				e.printStackTrace();
-			}
-		}
+//		String content = "";
+//		try {
+//			content = new String(Files.readAllBytes(Paths.get(filePath)));
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//
+//		List<Group> fromJson = gson.fromJson(content, type);
+//
+//		for (Group task : fromJson) {
+//			System.out.println(task.getId() + " , ");
+//			try {
+//				DAOFactory.getGroupSessionInterface().create(task);
+//			} catch (RestServiceException e) {
+//				e.printStackTrace();
+//			}
+//		}
 	}
 
 	private static void createAndConsumeViewJSON(String filePath) {
 
-//		List<View> list = new ArrayList<View>();
-//		try {
-//			list = DAOFactory.getViewSessionInterface().getAll();
-//		} catch (RestServiceException e) {
-//			e.printStackTrace();
-//		}
+		List<View> list = new ArrayList<View>();
+		try {
+			list = DAOFactory.getViewSessionInterface().getAll();
+		} catch (RestServiceException e) {
+			e.printStackTrace();
+		}
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		Type type = new TypeToken<List<View>>() {
 		}.getType();
-//		String json = gson.toJson(list, type);
-//		System.out.println(json);
-//		try {
-//			Files.write(Paths.get(filePath), json.getBytes(), StandardOpenOption.CREATE,
-//					StandardOpenOption.TRUNCATE_EXISTING);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-
-		System.out.println(
-				"#######################################################################################################");
-
-		String content = "";
+		String json = gson.toJson(list, type);
+		System.out.println(json);
 		try {
-			content = new String(Files.readAllBytes(Paths.get(filePath)));
+			Files.write(Paths.get(filePath), json.getBytes(), StandardOpenOption.CREATE,
+					StandardOpenOption.TRUNCATE_EXISTING);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		List<View> fromJson = gson.fromJson(content, type);
+		System.out.println(
+				"#######################################################################################################");
 
-		for (View task : fromJson) {
-			System.out.println(task.getId() + " , ");
-			try {
-				DAOFactory.getViewSessionInterface().create(task);
-			} catch (RestServiceException e) {
-				e.printStackTrace();
-			}
-		}
+//		String content = "";
+//		try {
+//			content = new String(Files.readAllBytes(Paths.get(filePath)));
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//
+//		List<View> fromJson = gson.fromJson(content, type);
+//
+//		for (View task : fromJson) {
+//			System.out.println(task.getId() + " , ");
+//			try {
+//				DAOFactory.getViewSessionInterface().create(task);
+//			} catch (RestServiceException e) {
+//				e.printStackTrace();
+//			}
+//		}
 	}
 
 	private static void createAndConsumeTopicGroupRelationJSON(String filePath) {
@@ -202,18 +204,18 @@ public class MainTest {
 		System.out.println(
 				"#######################################################################################################");
 
-		String content = "";
-		try {
-			content = new String(Files.readAllBytes(Paths.get(filePath)));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		List<TopicGroupRelation> fromJson = gson.fromJson(content, type);
-
-		for (TopicGroupRelation task : fromJson) {
-			System.out.println(task.getId() + " , ");
-		}
+//		String content = "";
+//		try {
+//			content = new String(Files.readAllBytes(Paths.get(filePath)));
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//
+//		List<TopicGroupRelation> fromJson = gson.fromJson(content, type);
+//
+//		for (TopicGroupRelation task : fromJson) {
+//			System.out.println(task.getId() + " , ");
+//		}
 	}
 
 	private static void createAndConsumeGroupViewRelationJSON(String filePath) {
@@ -239,18 +241,18 @@ public class MainTest {
 		System.out.println(
 				"#######################################################################################################");
 
-		String content = "";
-		try {
-			content = new String(Files.readAllBytes(Paths.get(filePath)));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		List<GroupViewRelation> fromJson = gson.fromJson(content, type);
-
-		for (GroupViewRelation task : fromJson) {
-			System.out.println(task.getId() + " , ");
-		}
+//		String content = "";
+//		try {
+//			content = new String(Files.readAllBytes(Paths.get(filePath)));
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//
+//		List<GroupViewRelation> fromJson = gson.fromJson(content, type);
+//
+//		for (GroupViewRelation task : fromJson) {
+//			System.out.println(task.getId() + " , ");
+//		}
 	}
 
 	private static void createAndConsumeViewTopicRelationJSON(String filePath) {
@@ -276,17 +278,17 @@ public class MainTest {
 		System.out.println(
 				"#######################################################################################################");
 
-		String content = "";
-		try {
-			content = new String(Files.readAllBytes(Paths.get(filePath)));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		List<ViewTopicRelation> fromJson = gson.fromJson(content, type);
-
-		for (ViewTopicRelation task : fromJson) {
-			System.out.println(task.getId() + " , ");
-		}
+//		String content = "";
+//		try {
+//			content = new String(Files.readAllBytes(Paths.get(filePath)));
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//
+//		List<ViewTopicRelation> fromJson = gson.fromJson(content, type);
+//
+//		for (ViewTopicRelation task : fromJson) {
+//			System.out.println(task.getId() + " , ");
+//		}
 	}
 }
