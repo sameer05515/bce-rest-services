@@ -6,27 +6,32 @@
 	<session-factory>
 		<property name="hibernate.bytecode.use_reflection_optimizer">false</property>
 		<property name="hibernate.connection.characterEncoding">UTF-8</property>
-		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-<!-- 		<property name="connection.driver_class">org.postgresql.Driver</property> -->
+		
+		<!-- <property name="connection.driver_class">org.postgresql.Driver</property> -->
+<property name="connection.driver_class">com.mysql.jdbc.Driver</property>		
 
-<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/topic-mgmt</property>
-		
-<!-- 		<property name="connection.url">jdbc:postgresql://localhost:5432/topicmgmt_test3</property> -->
-		
-		<!-- <property name="connection.url">jdbc:postgresql://localhost:5432/topicmgmt</property> -->
-		
-<!-- 		<property name="connection.username">postgres</property> -->
-<!-- 		<property name="connection.password">vinu123</property> -->
 
-<property name="connection.username">root</property>
-		<property name="connection.password">didi@12345</property>
+		<!-- <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/topic-mgmt</property> -->
+<!-- 	
+<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/topic-mgmt</property>	
+<property name="connection.url">jdbc:postgresql://localhost:5432/topicmgmt_test3</property> -->
+		
+		<property name="connection.url">jdbc:mysql://localhost:3306/topicmgmt27jul18</property>
+		
+		<property name="connection.username">root</property>
+		<property name="connection.password"></property>
+
+<!-- <property name="connection.username">postgres</property>
+		<property name="connection.password">didi12345</property> -->
 		
 			<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-<!-- 		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property> -->
+<!-- 		 -->
+<!-- <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property> -->
 		<property name="connection.autoReconnect">true</property>
 		<property name="connection.autoReconnectForPools">true</property>
 		<property name="hibernate.search.autoregister_listeners">false</property>
-<!-- 		<property name="hbm2ddl.auto">create</property> -->
+	<!-- <property name="hbm2ddl.auto">create</property>	 -->
+
 
 		<property name="show_sql">true</property>
 		<property name="hibernate.validator.apply_to_ddl">false</property>

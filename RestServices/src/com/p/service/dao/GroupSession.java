@@ -17,6 +17,8 @@ import com.p.service.pojo.Group;
  */
 public interface GroupSession {
 	
+	
+	
 	/**
 	 * Gets the coaching sessions grid.
 	 *
