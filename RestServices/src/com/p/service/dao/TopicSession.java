@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.p.service.exception.RestServiceException;
 import com.p.service.pojo.Topic;
+import com.p.service.pojo.TopicReads;
 
 
 
@@ -63,6 +64,31 @@ public interface TopicSession {
 	 * @return the coaching sessions grid
 	 * @throws ZettaCoachingException the zetta coaching exception
 	 */ 
-	public Topic get(Integer id) throws RestServiceException; 	
+	public Topic get(Integer id) throws RestServiceException;
+	
+	
+	/**
+	 * Gets the coaching sessions grid.
+	 *
+	 * @param accountId the account id
+	 * @param publishAccStatus the publish acc status
+	 * @param dateFrom the date from
+	 * @param dateTo the date to
+	 * @return the coaching sessions grid
+	 * @throws ZettaCoachingException the zetta coaching exception
+	 */ 
+	public boolean addRead(Topic id) throws RestServiceException;
+	
+	/**
+	 * Gets the coaching sessions grid.
+	 *
+	 * @param accountId the account id
+	 * @param publishAccStatus the publish acc status
+	 * @param dateFrom the date from
+	 * @param dateTo the date to
+	 * @return the coaching sessions grid
+	 * @throws ZettaCoachingException the zetta coaching exception
+	 */ 
+	public List<TopicReads> getReads(Topic id) throws RestServiceException;
 	
 }

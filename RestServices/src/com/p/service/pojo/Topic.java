@@ -22,6 +22,7 @@ public class Topic {
 	private String description;
 	private Date dateCreated;
 	private Date dateLastModified;
+	private Date dateLastRead;
 	private boolean personal;
 	private int rating=1;
 	
@@ -139,6 +140,18 @@ public class Topic {
 	 */
 	public void setRating(int rating) {
 		this.rating = rating;
+	}
+
+	/**
+	 * @return the rating
+	 */
+	@Column(name = "last_read_date", nullable = false)
+	public Date getDateLastRead() {
+		return dateLastRead;
+	}
+
+	public void setDateLastRead(Date dateLastReed) {
+		this.dateLastRead = dateLastReed;
 	}
 
 }

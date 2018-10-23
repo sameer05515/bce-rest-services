@@ -20,6 +20,8 @@ import org.apache.log4j.Logger;
 
 import com.p.service.exception.RestServiceException;
 import com.p.service.pojo.Topic;
+import com.p.service.pojo.TopicReads;
+import com.p.service.vo.TopicReadResponse;
 import com.p.sevice.common.DAOFactory;
 
 /**
@@ -134,9 +136,11 @@ public class TopicResource {
 		try {
 			topic.setDateCreated(new Date());
 			topic.setDateLastModified(new Date());
+			topic.setDateLastRead(new Date());
 			int c = DAOFactory.getTopicSessionInterface().create(topic);
+			
 			return Response.status(HttpURLConnection.HTTP_OK).entity("{\"status\":\"" + HttpURLConnection.HTTP_OK
-					+ "\", \"message\": \" Successfully created new topic : " + c + "\"}").build();
+					+ "\", \"message\": \" Successfully created new topic : " + c + "\" , \"new_topic_id\": \"" + c + "\"}").build();
 		} catch (RestServiceException e) {
 
 			/*
@@ -190,6 +194,79 @@ public class TopicResource {
 							+ "\", \"message\": \" Error while creating new topic : " + e + "\"}")
 					.build();
 		}
+	}
+	
+	@PUT
+	@Path("/{id}/markread")
+	@Produces(MediaType.APPLICATION_JSON)
+	// @Consumes(MediaType.APPLICATION_JSON)
+	public Response addRead(@PathParam("id") int id) {
+		
+
+
+		logger.info("Entered into addRead method");
+
+//		logger.info("person.getFirstName()" + topic.getTitle() + "person.getLastName()" + topic.getDescription()
+//				+ "topic.isPersonal()" + topic.isPersonal());
+
+		String message = "successfully contacted the restful API server";
+		logger.info("Information : " + message);
+
+		/*
+		 * TODO Validation of the topic object came , and if any assertion is
+		 * failing, error response code should be returned to client
+		 */
+
+		try {
+			Topic topic = DAOFactory.getTopicSessionInterface().get(id);
+			//topic.setDateLastModified(new Date());
+			boolean b = DAOFactory.getTopicSessionInterface().addRead(topic);
+
+			return Response.status(HttpURLConnection.HTTP_OK)
+					.entity("{\"status\":\""
+							+ ((b && true) ? HttpURLConnection.HTTP_OK : HttpURLConnection.HTTP_INTERNAL_ERROR)
+							+ "\", \"message\": \"" + ((b && true) ? "Successfully " : "Unsuccessfully ")
+							+ "updated group " + topic.getId() + "\"}")
+					.build();
+
+		} catch (RestServiceException e) {
+
+			e.printStackTrace();
+			return Response.status(HttpURLConnection.HTTP_NOT_FOUND)
+					.entity("{\"status\":\"" + HttpURLConnection.HTTP_NOT_FOUND
+							+ "\", \"message\": \" Error while creating new topic : " + e + "\"}")
+					.build();
+		}
+	
+	}
+	
+	
+	/**
+	 * Gets the topic for given id from list.
+	 *
+	 * @param id
+	 * 
+	 * @return the topic from list for given id
+	 */
+	@GET
+	@Path("/{id}/reads")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getReads(@PathParam("id") int id) {
+
+		logger.info("Entered into getCoachingList method");
+		String message = "successfully contacted the restful API server";
+		logger.info("Information : " + message);
+
+		try {
+			Topic topic = DAOFactory.getTopicSessionInterface().get(id);
+			List<TopicReads> list=DAOFactory.getTopicSessionInterface().getReads(topic);
+			return Response.status(HttpURLConnection.HTTP_OK).entity(new TopicReadResponse(id, topic, list)).build();
+		} catch (RestServiceException e) {
+			e.printStackTrace();
+			return Response.status(HttpURLConnection.HTTP_NOT_FOUND).entity("no topic found for given id : " + id)
+					.build();
+		}
+
 	}
 
 }
