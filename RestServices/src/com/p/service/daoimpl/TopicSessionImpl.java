@@ -113,20 +113,42 @@ public class TopicSessionImpl implements TopicSession {
 	}
 
 	@Override
+	public Topic get(String uniqueStrid) throws RestServiceException {
+		Session session = null;
+		Topic accounts = null;
+		try {
+			SessionFactory hsf = HibernateSessionFactory.getSessionFactory();
+			session = hsf.openSession();
+			session.getTransaction().begin();
+
+			accounts = (Topic) session.createCriteria(Topic.class).add(Restrictions.eq("uniqueStrid", uniqueStrid))
+					.uniqueResult();
+
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			throw new RestServiceException(e);
+		} finally {
+			session.close();
+		}
+		return accounts;
+	}
+
+	@Override
 	public boolean addRead(Topic id) throws RestServiceException {
 		Session session = null;
 		Topic accounts = null;
-		boolean status=false;
+		boolean status = false;
 		try {
 			SessionFactory hsf = HibernateSessionFactory.getSessionFactory();
 			session = hsf.openSession();
 			session.getTransaction().begin();
 
 			// session.doWork(arg0);
-			
+
 			java.sql.Timestamp date = new java.sql.Timestamp(new java.util.Date().getTime());
 
-			SQLQuery sql = session.createSQLQuery("insert into topic_read_history (topic_id,last_read_date) values (?,?)");
+			SQLQuery sql = session
+					.createSQLQuery("insert into topic_read_history (topic_id,last_read_date) values (?,?)");
 			sql.setInteger(0, id.getId());
 			sql.setTimestamp(1, date);
 			sql.executeUpdate();
@@ -134,14 +156,14 @@ public class TopicSessionImpl implements TopicSession {
 			session.getTransaction().commit();
 
 			session.getTransaction().begin();
-			
+
 			SQLQuery sql1 = session.createSQLQuery("update topic set last_read_date=? where id=?");
 			sql1.setTimestamp(0, date);
 			sql1.setInteger(1, id.getId());
 			sql1.executeUpdate();
 
 			session.getTransaction().commit();
-			status=true;
+			status = true;
 		} catch (Exception e) {
 			throw new RestServiceException(e);
 		} finally {
@@ -186,4 +208,5 @@ public class TopicSessionImpl implements TopicSession {
 		}
 		return accounts;
 	}
+
 }

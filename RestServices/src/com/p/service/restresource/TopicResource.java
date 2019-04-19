@@ -83,6 +83,26 @@ public class TopicResource {
 		}
 
 	}
+	
+	@GET
+	@Path("/uid/{uniqueStrid}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response get(@PathParam("uniqueStrid") String uniqueStrid) {
+
+		logger.info("Entered into getCoachingList method");
+		String message = "successfully contacted the restful API server";
+		logger.info("Information : " + message);
+
+		try {
+			Topic topic = DAOFactory.getTopicSessionInterface().get(uniqueStrid);
+			return Response.status(HttpURLConnection.HTTP_OK).entity(topic).build();
+		} catch (RestServiceException e) {
+			e.printStackTrace();
+			return Response.status(HttpURLConnection.HTTP_NOT_FOUND).entity("no topic found for given id : " + uniqueStrid)
+					.build();
+		}
+
+	}
 
 	/**
 	 * Deletes the topic for given id from list.

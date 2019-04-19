@@ -19,6 +19,7 @@ public class Topic {
 	private int id;
 	
 	private String title;
+	private String uniqueStrid;
 	private String description;
 	private Date dateCreated;
 	private Date dateLastModified;
@@ -152,6 +153,15 @@ public class Topic {
 
 	public void setDateLastRead(Date dateLastReed) {
 		this.dateLastRead = dateLastReed;
+	}
+
+	@Column(name = "uniquestrid", nullable = true)
+	public String getUniqueStrid() {
+		return uniqueStrid;
+	}
+
+	public void setUniqueStrid(String uniqueStrid) {
+		this.uniqueStrid = uniqueStrid;
 	}
 
 }

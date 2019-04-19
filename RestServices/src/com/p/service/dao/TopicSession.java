@@ -1,9 +1,6 @@
 package com.p.service.dao;
 
-import java.util.Date;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 import com.p.service.exception.RestServiceException;
 import com.p.service.pojo.Topic;
@@ -14,80 +11,91 @@ import com.p.service.pojo.TopicReads;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Interface CoachingActionInterface.
+ * The Interface ActionInterface.
  */
 public interface TopicSession {
 	
 	/**
-	 * Gets the coaching sessions grid.
+	 * Gets the Topic sessions grid.
 	 *
 	 * @param accountId the account id
 	 * @param publishAccStatus the publish acc status
 	 * @param dateFrom the date from
 	 * @param dateTo the date to
-	 * @return the coaching sessions grid
-	 * @throws ZettaCoachingException the zetta coaching exception
+	 * @return the Topic sessions grid
+	 * @throws Exception the  Topic exception
 	 */ 	
  	public List<Topic> getAll() throws RestServiceException;
  	
  	/**
-	 * Gets the coaching sessions grid.
+	 * Gets the Topic sessions grid.
 	 *
 	 * @param accountId the account id
 	 * @param publishAccStatus the publish acc status
 	 * @param dateFrom the date from
 	 * @param dateTo the date to
-	 * @return the coaching sessions grid
-	 * @throws ZettaCoachingException the zetta coaching exception
+	 * @return the Topic sessions grid
+	 * @throws Exception the  Topic exception
 	 */ 
 	public int create(Topic lob) throws RestServiceException ;
 
 	/**
-	 * Gets the coaching sessions grid.
+	 * Gets the Topic sessions grid.
 	 *
 	 * @param accountId the account id
 	 * @param publishAccStatus the publish acc status
 	 * @param dateFrom the date from
 	 * @param dateTo the date to
-	 * @return the coaching sessions grid
-	 * @throws ZettaCoachingException the zetta coaching exception
+	 * @return the Topic sessions grid
+	 * @throws Exception the  Topic exception
 	 */ 
 	public boolean update(Topic lob) throws RestServiceException;
 
 	/**
-	 * Gets the coaching sessions grid.
+	 * Gets the Topic sessions grid.
 	 *
 	 * @param accountId the account id
 	 * @param publishAccStatus the publish acc status
 	 * @param dateFrom the date from
 	 * @param dateTo the date to
-	 * @return the coaching sessions grid
-	 * @throws ZettaCoachingException the zetta coaching exception
+	 * @return the Topic sessions grid
+	 * @throws Exception the  Topic exception
 	 */ 
 	public Topic get(Integer id) throws RestServiceException;
 	
-	
 	/**
-	 * Gets the coaching sessions grid.
+	 * Gets the Topic sessions grid.
 	 *
 	 * @param accountId the account id
 	 * @param publishAccStatus the publish acc status
 	 * @param dateFrom the date from
 	 * @param dateTo the date to
-	 * @return the coaching sessions grid
-	 * @throws ZettaCoachingException the zetta coaching exception
+	 * @return the Topic sessions grid
+	 * @throws Exception the  Topic exception
+	 */ 
+	public Topic get(String uniqueStrid) throws RestServiceException;
+	
+	/**
+	 * Gets the Topic sessions grid.
+	 *
+	 * @param accountId the account id
+	 * @param publishAccStatus the publish acc status
+	 * @param dateFrom the date from
+	 * @param dateTo the date to
+	 * @return the Topic sessions grid
+	 * @throws Exception the  Topic exception
 	 */ 
 	public boolean addRead(Topic id) throws RestServiceException;
 	
 	/**
-	 * Gets the coaching sessions grid.
+	 * Gets the Topic sessions grid.
 	 *
 	 * @param accountId the account id
 	 * @param publishAccStatus the publish acc status
 	 * @param dateFrom the date from
 	 * @param dateTo the date to
-	 * @return the coaching sessions grid
-	 * @throws ZettaCoachingException the zetta coaching exception
+	 * @return the Topic sessions grid
+	 * @throws Exception the  Topic exception
 	 */ 
 	public List<TopicReads> getReads(Topic id) throws RestServiceException;
 	

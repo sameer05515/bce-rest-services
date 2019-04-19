@@ -3,7 +3,7 @@ package com.p.service.exception;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class ZettaException.
+ * The Class RestServiceException.
  */
 public class RestServiceException extends Exception {
 
@@ -17,7 +17,7 @@ public class RestServiceException extends Exception {
 	private String errCode;
 
 	/**
-	 * Instantiates a new zetta exception.
+	 * Instantiates a new  exception.
 	 *
 	 * @param errCode the err code
 	 */
@@ -27,14 +27,14 @@ public class RestServiceException extends Exception {
 
 	
 	/**
-	 * Instantiates a new zetta exception.
+	 * Instantiates a new  exception.
 	 */
 	public RestServiceException() {
 		super();
 	}
 
 	/**
-	 * Instantiates a new zetta exception.
+	 * Instantiates a new  exception.
 	 *
 	 * @param e the e
 	 */
