@@ -73,7 +73,7 @@ public class MainTest {
 
 	}
 
-	public static void writeDBValuesToJSON(String jsonDataDirectory,String outputDirectory)
+	public static String writeDBValuesToJSON(String jsonDataDirectory,String outputDirectory)
 			throws NoActionsProvidedException, RestServiceException, IOException, RequiredActionMissingException {
 		Action[] acts = { Action.WRITE_TO_JSON, Action.READ_FROM_SOURCE };
 		// Action[] acts = { Action.WRITE_TO_JSON, Action.OVERWRITE,
@@ -93,7 +93,11 @@ public class MainTest {
 		String date = simpleDateFormat.format(new Date());
 		///
 		
-		ZipDirectory.zip(jsonDataDirectory, outputDirectory, "topic-mgmt-data_"+date+".zip");
+		String generatedFileName="topic-mgmt-data_"+date+".zip";
+		
+		ZipDirectory.zip(jsonDataDirectory, outputDirectory, generatedFileName);
+		
+		return generatedFileName;
 	}
 	
 	public static void writeJSONValuesToTargetDB()

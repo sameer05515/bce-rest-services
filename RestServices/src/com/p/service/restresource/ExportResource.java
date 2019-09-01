@@ -25,6 +25,8 @@ import com.p.service.export.main.MainTest;
 import com.p.service.export.util.NoActionsProvidedException;
 import com.p.service.export.util.RequiredActionMissingException;
 import com.p.service.pojo.View;
+import com.p.service.response.ResponseCodes;
+import com.p.service.response.SuccessResponse;
 import com.p.sevice.common.DAOFactory;
 
 /**
@@ -35,15 +37,14 @@ public class ExportResource {
 
 	/** The Constant logger. */
 	private static final Logger logger = Logger.getLogger(ExportResource.class.getName());
-	
-	
+
 	/**
 	 * Exports all db data
 	 * 
 	 * to json files
 	 * 
 	 */
-	
+
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 
@@ -52,33 +53,49 @@ public class ExportResource {
 		logger.info("Entered into getCoachingList method");
 		String message = "successfully contacted the restful API server";
 		try {
-			
+
 			//
 			ServletContext context = serveletRequest.getServletContext();
 			String path = context.getRealPath("/");
-			
-			String jsonDataDirectory = path+"/data/topic-mgmt-json-data/";
-			String outputDirectory=path+"/data/topic-mgmt-json-data-output/";
-			
+
+			String jsonDataDirectory = path + "/data/topic-mgmt-json-data/";
+			String outputDirectory = path + "/data/topic-mgmt-json-data-output/";
+
 			//
 
-			MainTest.writeDBValuesToJSON(jsonDataDirectory,outputDirectory);
+			String generatedZipFileName = MainTest.writeDBValuesToJSON(jsonDataDirectory, outputDirectory);
 
 			logger.info("Information : " + message);
-			return Response.status(HttpURLConnection.HTTP_OK).entity("").build();
+			return Response.status(HttpURLConnection.HTTP_OK)
+					.entity(new SuccessResponse(ResponseCodes.SUCCESS, "Data exported successfully!",
+							"Data exported on url :" + getBaseUrl(serveletRequest)
+									+ "/data/topic-mgmt-json-data-output/" + generatedZipFileName))
+					.build();
 		} catch (RestServiceException e) {
 			e.printStackTrace();
-			return Response.status(HttpURLConnection.HTTP_NOT_FOUND).entity(e).build();
+			return Response.status(HttpURLConnection.HTTP_NOT_FOUND)
+					.entity(new SuccessResponse(ResponseCodes.FAIL, "Error in Data export!", e)).build();
 		} catch (NoActionsProvidedException e) {
 			e.printStackTrace();
-			return Response.status(HttpURLConnection.HTTP_NOT_FOUND).entity(e).build();
+			return Response.status(HttpURLConnection.HTTP_NOT_FOUND)
+					.entity(new SuccessResponse(ResponseCodes.FAIL, "Error in Data export!", e)).build();
 		} catch (IOException e) {
 			e.printStackTrace();
-			return Response.status(HttpURLConnection.HTTP_NOT_FOUND).entity(e).build();
+			return Response.status(HttpURLConnection.HTTP_NOT_FOUND)
+					.entity(new SuccessResponse(ResponseCodes.FAIL, "Error in Data export!", e)).build();
 		} catch (RequiredActionMissingException e) {
 			e.printStackTrace();
-			return Response.status(HttpURLConnection.HTTP_NOT_FOUND).entity(e).build();
+			return Response.status(HttpURLConnection.HTTP_NOT_FOUND)
+					.entity(new SuccessResponse(ResponseCodes.FAIL, "Error in Data export!", e)).build();
 		}
+	}
+
+	public static String getBaseUrl(HttpServletRequest request) {
+		String scheme = request.getScheme() + "://";
+		String serverName = request.getServerName();
+		String serverPort = (request.getServerPort() == 80) ? "" : ":" + request.getServerPort();
+		String contextPath = request.getContextPath();
+		return scheme + serverName + serverPort + contextPath;
 	}
 
 //	/**
