@@ -67,7 +67,7 @@ public class Group {
 	/**
 	 * @return the description
 	 */
-	@Column(name = "description", nullable = false)
+	@Column(name = "description", nullable = false, columnDefinition="TEXT")
 	public String getDescription() {
 		return description;
 	}
