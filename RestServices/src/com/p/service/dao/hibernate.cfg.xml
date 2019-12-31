@@ -11,11 +11,11 @@
 			<property name="connection.url">jdbc:postgresql://localhost:5432/topicmgmt_test3</property> -->
 
 
-		<!-- <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="connection.url">jdbc:mysql://localhost:3306/topic-mgmt</property>
 		<property name="connection.username">root</property>
 		<property name="connection.password"></property>
-		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property> -->
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 		
 		
 		
@@ -26,13 +26,13 @@
 		<property name="connection.password"></property> -->
 		
 		
-		<property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property> 
+		<!-- <property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property> 
 		<property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property>   
         <property name="hibernate.connection.username">sa</property>   
         <property name="hibernate.connection.password"></property>   
         <property name="hibernate.connection.url">jdbc:hsqldb:mem:topic-mgmt</property>
 		
-		<property name="hibernate.hbm2ddl.auto">create</property>
+		<property name="hibernate.hbm2ddl.auto">create</property> -->
 
 
 		<!-- <property name="connection.driver_class">org.postgresql.Driver</property> 

@@ -59,8 +59,8 @@ import com.p.sevice.common.DAOFactory;
  */
 public class MainTest {
 
-	public static String jsonDataDirectory = "C:/Users/premendra.kumar/Desktop/json-data/";
-	public static String outputDirectory="C:/Users/premendra.kumar/Desktop/json-data-output/";
+	public static String jsonDataDirectory = "C:\\Users\\premendra.kumar\\Desktop\\json\\";
+	public static String outputDirectory="C:\\Users\\premendra.kumar\\Desktop\\json-data-output\\";
 
 	// public static enum Action {
 	// WRITE_TO_JSON, ADD_TO_TARGET, OVERWRITE, FIND_CONFLICTS, READ_FROM_SOURCE
