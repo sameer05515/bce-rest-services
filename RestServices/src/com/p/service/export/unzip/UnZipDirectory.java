@@ -23,6 +23,10 @@ public class UnZipDirectory {
 
         if (!(Files.exists(Paths.get(unzipLocation)))) {
             Files.createDirectories(Paths.get(unzipLocation));
+            
+        }else {
+        	Files.delete(Paths.get(unzipLocation));
+        	Files.createDirectories(Paths.get(unzipLocation));
         }
         try (ZipInputStream zipInputStream = new ZipInputStream(new FileInputStream(zipFilePath))) {
             ZipEntry entry = zipInputStream.getNextEntry();
