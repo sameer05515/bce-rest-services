@@ -21,6 +21,7 @@ import org.apache.log4j.Logger;
 import com.p.service.exception.RestServiceException;
 import com.p.service.pojo.Topic;
 import com.p.service.pojo.TopicHistory;
+import com.p.service.pojo.TopicHistoryReport;
 import com.p.service.vo.TopicReadResponse;
 import com.p.sevice.common.DAOFactory;
 
@@ -83,7 +84,7 @@ public class TopicResource {
 		}
 
 	}
-	
+
 	@GET
 	@Path("/uid/{uniqueStrid}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -98,8 +99,8 @@ public class TopicResource {
 			return Response.status(HttpURLConnection.HTTP_OK).entity(topic).build();
 		} catch (RestServiceException e) {
 			e.printStackTrace();
-			return Response.status(HttpURLConnection.HTTP_NOT_FOUND).entity("no topic found for given id : " + uniqueStrid)
-					.build();
+			return Response.status(HttpURLConnection.HTTP_NOT_FOUND)
+					.entity("no topic found for given id : " + uniqueStrid).build();
 		}
 
 	}
@@ -150,22 +151,25 @@ public class TopicResource {
 		logger.info("Information : " + message);
 
 		/*
-		 * TODO Validation of the topic object came , and if any assertion is
-		 * failing, error response code should be returned to client
+		 * TODO Validation of the topic object came , and if any assertion is failing,
+		 * error response code should be returned to client
 		 */
 		try {
 			topic.setDateCreated(new Date());
 			topic.setDateLastModified(new Date());
 			topic.setDateLastRead(new Date());
 			int c = DAOFactory.getTopicSessionInterface().create(topic);
-			
-			return Response.status(HttpURLConnection.HTTP_OK).entity("{\"status\":\"" + HttpURLConnection.HTTP_OK
-					+ "\", \"message\": \" Successfully created new topic : " + c + "\" , \"new_topic_id\": \"" + c + "\"}").build();
+
+			return Response.status(HttpURLConnection.HTTP_OK)
+					.entity("{\"status\":\"" + HttpURLConnection.HTTP_OK
+							+ "\", \"message\": \" Successfully created new topic : " + c + "\" , \"new_topic_id\": \""
+							+ c + "\"}")
+					.build();
 		} catch (RestServiceException e) {
 
 			/*
-			 * TODO Error response code must be centralised, or if possible use
-			 * SpringREST instead of Jersey framework
+			 * TODO Error response code must be centralised, or if possible use SpringREST
+			 * instead of Jersey framework
 			 */
 			e.printStackTrace();
 			logger.info(e);
@@ -191,13 +195,14 @@ public class TopicResource {
 		logger.info("Information : " + message);
 
 		/*
-		 * TODO Validation of the topic object came , and if any assertion is
-		 * failing, error response code should be returned to client
+		 * TODO Validation of the topic object came , and if any assertion is failing,
+		 * error response code should be returned to client
 		 */
 
 		try {
 			topic.setDateLastModified(new Date());
 			boolean b = DAOFactory.getTopicSessionInterface().update(topic);
+			boolean b1 = DAOFactory.getTopicSessionInterface().addTopicHistory(topic, "update");
 
 			return Response.status(HttpURLConnection.HTTP_OK)
 					.entity("{\"status\":\""
@@ -215,14 +220,12 @@ public class TopicResource {
 					.build();
 		}
 	}
-	
+
 	@PUT
 	@Path("/{id}/mark/{action}")
 	@Produces(MediaType.APPLICATION_JSON)
 	// @Consumes(MediaType.APPLICATION_JSON)
-	public Response addTopicHistory(@PathParam("id") int id,@PathParam("action") String action) {
-		
-
+	public Response addTopicHistory(@PathParam("id") int id, @PathParam("action") String action) {
 
 		logger.info("Entered into addTopicHistory method");
 
@@ -233,14 +236,14 @@ public class TopicResource {
 		logger.info("Information : " + message);
 
 		/*
-		 * TODO Validation of the topic object came , and if any assertion is
-		 * failing, error response code should be returned to client
+		 * TODO Validation of the topic object came , and if any assertion is failing,
+		 * error response code should be returned to client
 		 */
 
 		try {
 			Topic topic = DAOFactory.getTopicSessionInterface().get(id);
-			//topic.setDateLastModified(new Date());
-			boolean b = DAOFactory.getTopicSessionInterface().addTopicHistory(topic,action);
+			// topic.setDateLastModified(new Date());
+			boolean b = DAOFactory.getTopicSessionInterface().addTopicHistory(topic, action);
 
 			return Response.status(HttpURLConnection.HTTP_OK)
 					.entity("{\"status\":\""
@@ -257,10 +260,9 @@ public class TopicResource {
 							+ "\", \"message\": \" Error while creating new topic : " + e + "\"}")
 					.build();
 		}
-	
+
 	}
-	
-	
+
 	/**
 	 * Gets the topic for given id from list.
 	 *
@@ -271,7 +273,7 @@ public class TopicResource {
 	@GET
 	@Path("/{id}/history/{action}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getTopicHistory(@PathParam("id") int id,@PathParam("action") String action) {
+	public Response getTopicHistory(@PathParam("id") int id, @PathParam("action") String action) {
 
 		logger.info("Entered into getTopicHistory method");
 //		String message = "successfully contacted the restful API server";
@@ -279,12 +281,40 @@ public class TopicResource {
 
 		try {
 			Topic topic = DAOFactory.getTopicSessionInterface().get(id);
-			List<TopicHistory> list=DAOFactory.getTopicSessionInterface().getTopicHistory(topic,action);
+			List<TopicHistory> list = DAOFactory.getTopicSessionInterface().getTopicHistory(topic, action);
 			return Response.status(HttpURLConnection.HTTP_OK).entity(new TopicReadResponse(id, topic, list)).build();
 		} catch (RestServiceException e) {
 			e.printStackTrace();
 			return Response.status(HttpURLConnection.HTTP_NOT_FOUND).entity("no topic found for given id : " + id)
 					.build();
+		}
+
+	}
+
+	/**
+	 * Gets the topic for given id from list.
+	 *
+	 * @param id
+	 * 
+	 * @return the topic from list for given id
+	 */
+	@GET
+	@Path("/history/{action}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getTopicHistory(@PathParam("action") String action) {
+
+		logger.info("Entered into getTopicHistory method");
+//		String message = "successfully contacted the restful API server";
+//		logger.info("Information : " + message);
+
+		try {
+
+			List<TopicHistoryReport> list = DAOFactory.getTopicSessionInterface().getTopicHistoryReport(action);
+			return Response.status(HttpURLConnection.HTTP_OK).entity(list).build();
+		} catch (RestServiceException e) {
+			e.printStackTrace();
+			return Response.status(HttpURLConnection.HTTP_NOT_FOUND)
+					.entity("no topic history found for given action : " + action).build();
 		}
 
 	}
