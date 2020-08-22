@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.p.service.exception.RestServiceException;
 import com.p.service.pojo.Topic;
-import com.p.service.pojo.TopicReads;
+import com.p.service.pojo.TopicHistory;
 
 
 
@@ -85,7 +85,9 @@ public interface TopicSession {
 	 * @return the Topic sessions grid
 	 * @throws Exception the  Topic exception
 	 */ 
-	public boolean addRead(Topic id) throws RestServiceException;
+	//public boolean addRead(Topic id) throws RestServiceException;
+	
+	public boolean addTopicHistory(Topic id, String action) throws RestServiceException;
 	
 	/**
 	 * Gets the Topic sessions grid.
@@ -97,6 +99,10 @@ public interface TopicSession {
 	 * @return the Topic sessions grid
 	 * @throws Exception the  Topic exception
 	 */ 
-	public List<TopicReads> getReads(Topic id) throws RestServiceException;
+	//public List<TopicReads> getReads(Topic id) throws RestServiceException;
+
+	public List<TopicHistory> getTopicHistory(Topic id, String action) throws RestServiceException;
+
+	
 	
 }

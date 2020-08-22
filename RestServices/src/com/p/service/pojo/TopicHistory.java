@@ -2,20 +2,22 @@ package com.p.service.pojo;
 
 import java.util.Date;
 
-public class TopicReads {
+public class TopicHistory {
 	
 	private int id;
 	private int topicId;
 	private Date dateLastRead;
+	private String action;
 	
-	public TopicReads(int id, int topicId, Date dateLastReed) {
+	public TopicHistory(int id, int topicId, Date dateLastReed,String action) {
 		super();
 		this.id = id;
 		this.topicId = topicId;
 		this.dateLastRead = dateLastReed;
+		this.setAction(action);
 	}
 	
-	public TopicReads() {
+	public TopicHistory() {
 		super();
 	}
 
@@ -38,6 +40,14 @@ public class TopicReads {
 
 	public void setDateLastRead(Date dateLastRead) {
 		this.dateLastRead = dateLastRead;
+	}
+
+	public String getAction() {
+		return action;
+	}
+
+	public void setAction(String action) {
+		this.action = action;
 	}
 	
 

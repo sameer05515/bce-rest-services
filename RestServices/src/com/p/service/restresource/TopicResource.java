@@ -20,7 +20,7 @@ import org.apache.log4j.Logger;
 
 import com.p.service.exception.RestServiceException;
 import com.p.service.pojo.Topic;
-import com.p.service.pojo.TopicReads;
+import com.p.service.pojo.TopicHistory;
 import com.p.service.vo.TopicReadResponse;
 import com.p.sevice.common.DAOFactory;
 
@@ -217,14 +217,14 @@ public class TopicResource {
 	}
 	
 	@PUT
-	@Path("/{id}/markread")
+	@Path("/{id}/mark/{action}")
 	@Produces(MediaType.APPLICATION_JSON)
 	// @Consumes(MediaType.APPLICATION_JSON)
-	public Response addRead(@PathParam("id") int id) {
+	public Response addTopicHistory(@PathParam("id") int id,@PathParam("action") String action) {
 		
 
 
-		logger.info("Entered into addRead method");
+		logger.info("Entered into addTopicHistory method");
 
 //		logger.info("person.getFirstName()" + topic.getTitle() + "person.getLastName()" + topic.getDescription()
 //				+ "topic.isPersonal()" + topic.isPersonal());
@@ -240,7 +240,7 @@ public class TopicResource {
 		try {
 			Topic topic = DAOFactory.getTopicSessionInterface().get(id);
 			//topic.setDateLastModified(new Date());
-			boolean b = DAOFactory.getTopicSessionInterface().addRead(topic);
+			boolean b = DAOFactory.getTopicSessionInterface().addTopicHistory(topic,action);
 
 			return Response.status(HttpURLConnection.HTTP_OK)
 					.entity("{\"status\":\""
@@ -269,17 +269,17 @@ public class TopicResource {
 	 * @return the topic from list for given id
 	 */
 	@GET
-	@Path("/{id}/reads")
+	@Path("/{id}/history/{action}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getReads(@PathParam("id") int id) {
+	public Response getTopicHistory(@PathParam("id") int id,@PathParam("action") String action) {
 
-		logger.info("Entered into getCoachingList method");
-		String message = "successfully contacted the restful API server";
-		logger.info("Information : " + message);
+		logger.info("Entered into getTopicHistory method");
+//		String message = "successfully contacted the restful API server";
+//		logger.info("Information : " + message);
 
 		try {
 			Topic topic = DAOFactory.getTopicSessionInterface().get(id);
-			List<TopicReads> list=DAOFactory.getTopicSessionInterface().getReads(topic);
+			List<TopicHistory> list=DAOFactory.getTopicSessionInterface().getTopicHistory(topic,action);
 			return Response.status(HttpURLConnection.HTTP_OK).entity(new TopicReadResponse(id, topic, list)).build();
 		} catch (RestServiceException e) {
 			e.printStackTrace();

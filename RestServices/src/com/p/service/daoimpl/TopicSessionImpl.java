@@ -17,7 +17,7 @@ import org.hibernate.criterion.Restrictions;
 import com.p.service.dao.TopicSession;
 import com.p.service.exception.RestServiceException;
 import com.p.service.pojo.Topic;
-import com.p.service.pojo.TopicReads;
+import com.p.service.pojo.TopicHistory;
 import com.p.sevice.common.HibernateSessionFactory;
 
 public class TopicSessionImpl implements TopicSession {
@@ -134,7 +134,7 @@ public class TopicSessionImpl implements TopicSession {
 	}
 
 	@Override
-	public boolean addRead(Topic id) throws RestServiceException {
+	public boolean addTopicHistory(Topic id,String action) throws RestServiceException {
 		Session session = null;
 		Topic accounts = null;
 		boolean status = false;
@@ -173,9 +173,9 @@ public class TopicSessionImpl implements TopicSession {
 	}
 
 	@Override
-	public List<TopicReads> getReads(Topic id) throws RestServiceException {
+	public List<TopicHistory> getTopicHistory(Topic id,String action) throws RestServiceException {
 		Session session = null;
-		List<TopicReads> accounts = new ArrayList<>();
+		List<TopicHistory> accounts = new ArrayList<>();
 		try {
 			SessionFactory hsf = HibernateSessionFactory.getSessionFactory();
 			session = hsf.openSession();
@@ -185,9 +185,11 @@ public class TopicSessionImpl implements TopicSession {
 			// .add(Restrictions.eq("id", id))
 			// .uniqueResult();
 
-			String sql = "SELECT id, topic_id,last_read_date  FROM topic_read_history where topic_id=?";
+			String sql = "SELECT id, topic_id,last_read_date  "
+					+ "FROM topic_read_history where topic_id=? and action=?";
 			SQLQuery query = session.createSQLQuery(sql);
 			query.setInteger(0, id.getId());
+			query.setString(1, action);
 			query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
 			List data = query.list();
 
@@ -196,8 +198,8 @@ public class TopicSessionImpl implements TopicSession {
 				System.out.print("First Name: " + row.get("first_name"));
 				System.out.println(", Salary: " + row.get("salary"));
 
-				accounts.add(new TopicReads((Integer) row.get("id"), (Integer) row.get("topic_id"),
-						(Date) row.get("last_read_date")));
+				accounts.add(new TopicHistory((Integer) row.get("id"), (Integer) row.get("topic_id"),
+						(Date) row.get("last_read_date"),(String)row.get("acion")));
 			}
 
 			session.getTransaction().commit();

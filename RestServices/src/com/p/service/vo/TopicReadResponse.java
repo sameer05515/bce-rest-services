@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.p.service.pojo.Topic;
-import com.p.service.pojo.TopicReads;
+import com.p.service.pojo.TopicHistory;
 
 public class TopicReadResponse {
 
 	private int topicId;
 	private Topic topic;
 	private int count = 0;
-	private List<TopicReads> reads = new ArrayList<>();
+	private List<TopicHistory> reads = new ArrayList<>();
 
-	public TopicReadResponse(int topicId, Topic topic, List<TopicReads> reads) {
+	public TopicReadResponse(int topicId, Topic topic, List<TopicHistory> reads) {
 		super();
 		this.topicId = topicId;
 		this.topic = topic;
@@ -54,11 +54,11 @@ public class TopicReadResponse {
 	// public void setCount(int count) {
 	// this.count = count;
 	// }
-	public List<TopicReads> getReads() {
+	public List<TopicHistory> getReads() {
 		return reads;
 	}
 
-	public void setReads(List<TopicReads> reads) {
+	public void setReads(List<TopicHistory> reads) {
 		if (reads != null && reads.size() > 0)
 			this.reads = reads;
 	}
